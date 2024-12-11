@@ -1,0 +1,5 @@
+*.dmg
+*.pkg
+README.md
+.gitignore
+LICENSE

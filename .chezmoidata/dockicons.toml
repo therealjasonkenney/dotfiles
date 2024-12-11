@@ -1,0 +1,116 @@
+[dockicons.discord]
+id = "com.hnc.Discord"
+label = "Discord"
+path = "/Applications/Discord.app/"
+type = "user"
+
+[dockicons.music]
+id = "com.apple.Music"
+label = "Music"
+path = "/System/Applications/Music.app/"
+type = "user"
+
+[dockicons.safari]
+id = "com.apple.Safari"
+label = "Safari"
+path = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/"
+type = "user"
+
+[dockicons.scrivener]
+id = "com.literatureandlatte.scrivener3"
+label = "Scrivener"
+path = "/Applications/Scrivener.app/"
+type = "user"
+
+# spacer
+
+[dockicons.publisher]
+id = "com.seriflabs.affinitypublisher2"
+label = "Affinity Publisher 2"
+path = "/Applications/Affinity Publisher 2.app/"
+type = "user"
+
+[dockicons.endnote]
+id = "com.ThomsonResearchSoft.EndNote"
+label = "EndNote 21"
+path = "/Applications/EndNote/EndNote 21.app/"
+type = "user"
+
+[dockicons.excel]
+id = "com.microsoft.Excel"
+label = "Microsoft Excel"
+path = "/Applications/Microsoft Excel.app/"
+type = "user"
+
+[dockicons.word]
+id = "com.microsoft.Word"
+label = "Microsoft Word"
+path = "/Applications/Microsoft Word.app/"
+type = "user"
+
+[dockicons.omnigraffle]
+id = "com.omnigroup.OmniGraffle7.MacAppStore"
+label = "OmniGraffle"
+path = "/Applications/OmniGraffle.app/"
+type = "user"
+
+# spacer
+
+[dockicons.calendar]
+id = "com.apple.iCal"
+label = "Calendar"
+path = "/System/Applications/Calendar.app/"
+type = "system-extra"
+
+[dockicons.contacts]
+id = "com.apple.AddressBook"
+label = "Contacts"
+path = "/System/Applications/Contacts.app/"
+type = "system"
+
+[dockicons.mail]
+id = "com.apple.mail"
+label = "Mail"
+path = "/System/Applications/Mail.app/"
+type = "system"
+         
+[dockicons.notes]
+id = "com.apple.Notes"
+label = "Notes"
+path = "/System/Applications/Notes.app/"
+type = "user"
+      
+# spacer
+# { "tile-data": { "tile-type": "small-spacer-tile"} }
+
+[dockicons.bbedit]
+id = "com.barebones.bbedit"
+label = "BBEdit"
+path = "/Applications/BBEdit.app/"
+type = "user"
+
+[dockicons.preview]
+id = "com.apple.Preview"
+label = "Preview"
+path = "/System/Applications/Preview.app/"
+type = "system"
+
+[dockicons.vlc]
+id = "org.videolan.vlc"
+label = "VLC"
+path = "/Applications/VLC.app/"
+type = "user"
+
+# spacer
+
+[dockicons.neovide]
+id = "com.neovide.neovide"
+label = "Neovide"
+path = "/Applications/Neovide.app/"
+type = "user"
+
+[dockicons.wezterm]
+id = "com.github.wez.wezterm"
+label = "WezTerm"
+path = "/Applications/WezTerm.app/"
+type = "user"
