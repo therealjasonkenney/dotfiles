@@ -1,0 +1,81 @@
+# This is the brewfile for my home development machines.
+# MacOS build version: {{ output "sw_vers" "--buildVersion" }}
+
+cask_args(require_sha: true, no_quarantine: true)
+
+brew "mas"              # Mac App Store.
+cask "discord"          # Tabletop RPGs.
+cask "firefox"          # Roll 20
+cask "font-charis-sil"  # Font used for board games.
+cask "scrivener"        # Novel writing software.
+cask "vlc"              # Video Player.
+cask  "zoom"            # Online classroom
+
+mas "Affinity Publisher 2", id: 1606941598
+mas "CARROT Weather",       id: 993487541
+mas "Microsoft Excel",      id: 586683407
+mas "Microsoft OneDrive",   id: 477537958
+mas "Microsoft Word",       id: 586447913
+mas "Omnigraffle 7",        id: 1142578753
+mas "Remarkable Desktop",   id: 1276493162
+mas "Stuffit Expander",     id: 919269455
+
+# Manage References (Academic Writing)
+cask "endnote",  args: { require_sha: false}
+
+# Auth to git via yubikey
+brew "gpg2"
+brew "pinentry-mac"
+brew "ykman"
+
+# Dev Toolbox
+brew "bat"          # CLI source code viewer
+cask("bbedit")      # BBedit Text Editor, requires License.
+brew "fd"           # find replacement.
+cask("font-hack")   # Font used for Terminal and NeoVim
+brew "git"          # Version Control
+brew "git-lfs"      # LFS support
+brew "imagemagick"  # Image transformation/conversion tools.
+cask("neovide")     # NeoVim GUI frontend.
+brew "neovim"       # Modal text editor.
+brew "ripgrep"      # CLI Text Search
+brew "sk"           # Fuzzy finder (used in neovim's fzf plugin)
+cask("wezterm")     # Terminal Emulator
+brew "zellij"       # Terminal Muxer
+
+# ASDF Dependencies
+brew "coreutils"
+brew "curl"
+brew "erlang@27" # Needed for elixir plugin.
+brew "gmp"       # Needed for ruby plugin.
+brew "libyaml"   # Needed for ruby plugin.
+
+{{- if eq .chezmoi.hostname "hikari" -}}
+
+# Hobby Coding
+cask "basictex"             # Typesetting
+brew "biome"                # LSP for HTML/CSS/JS
+brew "rustup"               # Allows one to install rust.
+cask "parallels"            # Virtual Machines
+cask "postgres-unofficial"  # Postgres.app
+brew "qemu"                 # CPU Emulator for low-level coding.
+cask "raspberry-pi-imager"  # Raspberry PI Imager Tool
+brew "sass/sass/sass"       # Sass Compiler
+
+mas "Postico 2", id: 6446933691
+
+# Game Dev Hobby
+cask "blender" # 3D Modeling software.
+cask "godot"   # GODOT Game Engine
+cask "renpy"   # Ren'Py Visual Novel Engine
+
+# Video Transcoding
+brew "ffmpeg"
+cask "handbrake"
+
+mas("Affinity Designer 2", id: 1616831348)
+mas("Affinity Photo 2", id: 1616822987)
+mas("Corel Painter Essentials", id: 1475152238)
+
+{{- end -}}
+

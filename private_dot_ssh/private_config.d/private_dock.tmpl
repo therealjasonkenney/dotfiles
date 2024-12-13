@@ -1,0 +1,6 @@
+{{- if eq .chezmoi.hostname "hikari" -}}
+Host dock.lan
+  IdentityFile ~/.ssh/yubikey.pub
+  PreferredAuthentications publickey
+  IdentitiesOnly yes
+{{- end -}}

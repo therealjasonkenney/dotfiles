@@ -3,7 +3,7 @@
 #
 
 OS="$(uname -s)"
-IMG="./src/Mac_Internet_Security_X9.dmg"
+IMG="$HOME/.local/share/chezmoi/src/Mac_Internet_Security_X9.dmg"
 
 if [ "$OS" = "Darwin" ]; then
   hdiutil attach "$IMG"

@@ -3,10 +3,8 @@
 #
 #
 
-{{- if eq .chezmoi.hostname "air" }}
-export HOMEBREW_BUNDLE_FILE_GLOBAL="{{ .chezmoi.homeDir -}}/.config/brewfile/writing_brewfile.rb"
-{{ else }}
-export HOMEBREW_BUNDLE_FILE_GLOBAL="{{ .chezmoi.homeDir -}}/.config/brewfile/homedev_brewfile.rb"
+{{- if eq .chezmoi.hostname "air" "hikari" }}
+export HOMEBREW_BUNDLE_FILE_GLOBAL="{{ .chezmoi.homeDir -}}/.config/brewfile/Brewfile"
 {{ end }}
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
