@@ -40,13 +40,13 @@ set -Ux ASDF_GEM_DEFAULT_PACKAGES_FILE    "$asdf_cfg/default-gems"
 set -Ux ASDF_GOLANG_DEFAULT_PACKAGES_FILE "$asdf_cfg/default-golang-pkgs"
 set -Ux ASDF_NPM_DEFAULT_PACKAGES_FILE    "$asdf_cfg/default-npm-packages"
 set -Ux ASDF_PYTHON_DEFAULT_PACKAGES_FILE "$asdf_cfg/default-python-packages"
-
 # ##############################################################
 
 # #### MAC SPECIFIC TWEAKS #####################################
 set -l os (uname)
 if test $os = Darwin
-  set -Ux XDG_CACHE_HOME "$HOME/Library/Caches"
+  set -Ux HOMEBREW_BUNDLE_FILE_GLOBAL "$HOME/.config/brewfile/Brewfile"
+  set -Ux XDG_CACHE_HOME              "$HOME/Library/Caches"
 end
 
 # ##############################################################

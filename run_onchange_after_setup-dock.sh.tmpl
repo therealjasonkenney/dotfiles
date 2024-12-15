@@ -1,22 +1,41 @@
-{{ if (eq .chezmoi.os "darwin") -}}
-#!/bin/bash
+{{ if eq .chezmoi.hostname "air" "hikari" -}}
+#!/bin/sh
 #
 #
 
-{{- if eq .chezmoi.hostname "air" "hikari" }}
-export HOMEBREW_BUNDLE_FILE_GLOBAL="{{ .chezmoi.homeDir -}}/.config/brewfile/Brewfile"
-{{ end }}
+# Don't autohide
+defaults write com.apple.dock autohide 0
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Large icons
+defaults write com.apple.dock largesize 16
+defaults write com.apple.dock tilesize 128
 
-brew bundle install --cleanup --zap --global
+# Left side of monitor
+defaults write com.apple.dock orientation "left"
+
+# Disable magnification
+defaults write com.apple.dock magnification 0
+
+# Genie minimization effect.
+defaults write com.apple.dock mineffect "genie"
+
+{{ if eq .chezmoi.hostname "hikari" -}}
+# Show recent apps.
+defaults write com.apple.dock "show-recents" 1
+{{- else -}}
+# Disable recent apps.
+defaults write com.apple.dock "show-recents" 0
+{{- end }}
+
+# Set up the default icons for the dock.
 
 defaults delete com.apple.dock persistent-apps
 
 {{ template "dockicon" .dockicons.discord }}
-{{ template "dockicon" .dockicons.music }}
 {{ template "dockicon" .dockicons.safari }}
 {{ template "dockicon" .dockicons.scrivener }}
+
+{{ if eq .chezmoi.hostname "hikari" -}}
 defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}'
 
 {{ template "dockicon" .dockicons.publisher }}
@@ -24,16 +43,20 @@ defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-sp
 {{ template "dockicon" .dockicons.excel }}
 {{ template "dockicon" .dockicons.word }}
 {{ template "dockicon" .dockicons.omnigraffle }}
+{{- else -}}
+{{ template "dockicon" .dockicons.endnote }}
+{{ template "dockicon" .dockicons.word }}
+{{ end -}}
+
 defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}'
 
 {{ template "dockicon" .dockicons.calendar }}
-{{ template "dockicon" .dockicons.contacts }}
 {{ template "dockicon" .dockicons.mail }}
 {{ template "dockicon" .dockicons.notes }}
 defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}'
 
-{{ if eq .chezmoi.hostname "air" -}}
-{{ template "dockicon" .dockicons.bbedit }}
+{{ if eq .chezmoi.hostname "hikari" -}}
+{{ template "dockicon" .dockicons.music }}
 {{ end -}}
 {{ template "dockicon" .dockicons.preview }}
 {{ template "dockicon" .dockicons.vlc }}
