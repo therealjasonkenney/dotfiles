@@ -21,6 +21,6 @@ if [ "$OS" = "Darwin" ] ; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # Add to the PATH
-  echo "Need root privileges to add homebrew to launchctl services path"
-  sudo launchctl config user path "$(/opt/homebrew/bin/brew --prefix)/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+  # echo "Need root privileges to add homebrew to launchctl services path"
+  # sudo launchctl config user path "$(/opt/homebrew/bin/brew --prefix)/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 fi

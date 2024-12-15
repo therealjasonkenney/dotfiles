@@ -1,4 +1,4 @@
-#!/usr/bin/env fish
+#!/opt/homebrew/bin/fish
 #
 #
 
@@ -13,19 +13,6 @@ fish_add_path /usr/local/sbin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/sbin
 fish_add_path "$HOME/Applications/Postgres.app/Contents/Versions/latest/bin"
-
-begin
-  set -l fish_path $(command -v fish)
-
-  # Add fish to /etc/shells if its not there.
-  if test -z "$(grep -F -- $fish_path /etc/shells)"
-    echo "Adding $fish_path to /etc/shells"
-    echo $fish_path | sudo tee -a /etc/shells > /dev/null
-  end
-
-  # Change login shell to fish
-  chsh -s $fish_path
-end
 
 # #### ENVIRONMENT #############################################
 
