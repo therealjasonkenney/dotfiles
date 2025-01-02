@@ -24,7 +24,7 @@ local function on_attach(ev)
 	end, opts)
 end
 
-local function lsp_config()
+local function config()
 	local lspconfig = require("lspconfig")
 
 	local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -34,34 +34,26 @@ local function lsp_config()
 		on_attach = on_attach,
 	})
 
-	require("mason-lspconfig").setup_handlers({
-		function(server)
-			lspconfig[server].setup({})
-		end,
-		["biome"] = require("plugins.lsp.biome").on_setup,
-		["lua_ls"] = require("plugins.lsp.lua_ls").on_setup,
-	})
+	require("config.lua").lsp_setup()
 end
 
 return {
 	-- Language servers and installation.
 	{
 		"neovim/nvim-lspconfig",
-		config = lsp_config,
+		config = config,
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
-			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			"nvim-telescope/telescope.nvim",
-			{
-				"elixir-tools/elixir-tools.nvim",
-				dependencies = {
-					"nvim-lua/plenary.nvim",
-				},
-			},
 			"lbrayner/vim-rzip", -- required for tsserver & yarn to behave.
+		},
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = "williamboman/mason.nvim",
+		opts = {
+			automatic_installation = true,
 		},
 	},
 }
