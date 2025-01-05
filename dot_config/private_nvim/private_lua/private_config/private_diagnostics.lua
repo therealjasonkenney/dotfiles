@@ -13,7 +13,7 @@ local function float_prefix(diagnostic, i, total)
 end
 
 return {
-	config = function()
+	setup = function()
 		vim.diagnostic.config({
 			float = {
 				border = "rounded",

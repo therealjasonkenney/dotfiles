@@ -41,7 +41,7 @@ if vim.g.neovide then
 end
 
 -- Configure diagnostics
-require("config.diagnostics").config()
+require("config.diagnostics").setup()
 
 -- load all plugins/*.lua files
 require("lazy").setup("plugins")

@@ -1,7 +1,19 @@
-local function init()
+local function set_formatexpr(ev)
+	local bufnr = ev.buf
+
 	-- Sets the formatexpr which in turn hooks into
 	-- neovim's formatting keybindings/etc.
-	vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+	vim.bo[bufnr].formatexpr = "v:lua.require'conform'.formatexpr()"
+end
+
+local function init()
+	local augroup = vim.api.nvim_create_augroup("formatting", {})
+
+	vim.api.nvim_create_autocmd("LspAttach", {
+		desc = "Override format expression to use conform.",
+		callback = set_formatexpr,
+		group = augroup,
+	})
 end
 
 return {
@@ -14,9 +26,6 @@ return {
 		"zapling/mason-conform.nvim",
 	},
 	opts = {
-		default_format_opts = {
-			lsp_format = "fallback",
-		},
 		format_on_save = {
 			timeout_ms = 500,
 		},

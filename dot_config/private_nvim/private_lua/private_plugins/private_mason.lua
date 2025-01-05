@@ -7,7 +7,4 @@ end
 return {
 	"williamboman/mason.nvim",
 	config = config,
-	dependencies = {
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-	},
 }
