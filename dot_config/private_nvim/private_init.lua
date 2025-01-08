@@ -2,14 +2,14 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=v10.24.2",
-		lazypath,
-	})
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=v10.24.2",
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 -- --------------------------
@@ -37,7 +37,7 @@ opt.shell = "/bin/sh"
 
 -- Neovide specific settings
 if vim.g.neovide then
-	require("config.neovide").setup()
+  require("config.neovide").setup()
 end
 
 -- Configure diagnostics
