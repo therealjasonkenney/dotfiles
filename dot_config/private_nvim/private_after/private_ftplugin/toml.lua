@@ -1,4 +1,9 @@
-local lsp_util = require("util.lsp")
+local cmp = require("cmp_nvim_lsp")
+
+local capabilities = cmp.default_capabilities(
+  vim.lsp.protocol.make_client_capabilities()
+)
+
 local util = require("util")
 
 util.ensure_installed("taplo")
@@ -7,9 +12,7 @@ local taplo = util.mason_path() .. "/taplo"
 
 vim.lsp.start({
   name = "taplo",
-  capabilities = lsp_util.default_capabilities(),
+  capabilities = capabilities,
   cmd = { taplo, "lsp", "stdio" },
   filetypes = { "toml" },
 })
-
-lsp_util.format_on_save()

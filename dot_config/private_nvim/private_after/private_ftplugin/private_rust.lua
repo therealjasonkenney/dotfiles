@@ -24,30 +24,21 @@ local function workspace_root()
   end
 end
 
-local lsp_util = require("util.lsp")
 local util = require("util")
 
 local rust_analyzer = vim.fn.expand("$HOME/.local/cargo/bin/rust-analyzer")
 
 local root_dir = workspace_root()
 
-print(root_dir)
-
 if root_dir then
+  local cmp = require("nvim_cmp_lsp")
   local dap = require("dap")
 
   util.ensure_installed("codelldb")
 
-  -- Settings are loaded from ./rust-analyzer.toml
-  vim.lsp.start({
-    name = "rust-analyzer",
-    capabilities = lsp_util.default_capabilities(),
-    cmd = { rust_analyzer },
-    filetypes = { "rust" },
-    root_dir = root_dir,
-  })
-
-  lsp_util.format_on_save()
+  local capabilities = cmp.default_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+  )
 
   -- Debugging in rust.
   -- Settings should be loaded from ./.vscode/launch.json
@@ -55,4 +46,13 @@ if root_dir then
     type = "executable",
     command = util.mason_path() .. "/codelldb",
   }
+
+  -- Settings are loaded from ./rust-analyzer.toml
+  vim.lsp.start({
+    name = "rust-analyzer",
+    capabilities = capabilities,
+    cmd = { rust_analyzer },
+    filetypes = { "rust" },
+    root_dir = root_dir,
+  })
 end

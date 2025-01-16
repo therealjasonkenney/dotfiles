@@ -4,8 +4,6 @@
 -- Code Completion: Yes
 -- This should also utilize schemas specified in the json file.
 
-local conform = require("conform")
-local lsp_util = require("util.lsp")
 local util = require("util")
 
 -- load completion plugin
@@ -26,10 +24,8 @@ vim.lsp.start({
   cmd = { jsonls, "--stdio" },
   filetypes = { "json", "jsonc" },
   init_options = {
-    provideFormatter = true,
+    provideFormatter = false,
   },
   name = "jsonls",
-  root_dir = lsp_util.get_root_dir({ ".git" }),
+  root_dir = util.git_project_dir(),
 })
-
-conform.formatters_by_ft.json = { "prettierd" }

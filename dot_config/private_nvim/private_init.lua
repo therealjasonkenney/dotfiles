@@ -1,24 +1,16 @@
--- --------------------------
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=v10.24.2",
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
--- --------------------------
+local config = require("config")
+local setup = require("setup")
+
+-- Setup and load lazy
+setup.lazy()
 
 -- Must set leader before loading lazy
 vim.g.mapleader = " "
 
 local opt = vim.opt
 
+-- These are defaults, not sure if they are
+-- needed if an LSP is loaded o.0
 -- Use two spaces instead of tabs.
 opt.expandtab = true
 opt.tabstop = 2
@@ -26,22 +18,22 @@ opt.softtabstop = 2
 opt.shiftwidth = 2
 opt.shiftround = true -- Round indent
 
+setup.ui()
+
+-- OS specific settings
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
-opt.confirm = true -- Confirm to save changes before exiting modified buffer
-opt.linebreak = true -- Wrap lines at convenient points
-opt.list = true -- Show some invisible characters (tabs...
-opt.mouse = "a" -- Enable mouse mode
-opt.number = true -- Print line number
-opt.relativenumber = true -- Relative line numbers
 opt.shell = "/bin/sh"
 
 -- Neovide specific settings
 if vim.g.neovide then
-  require("config.neovide").setup()
+  setup.neovide()
 end
 
 -- Configure diagnostics
-require("config.diagnostics").setup()
+vim.diagnostic.config(config.diagnostics())
+
+-- Configure lsp
+setup.lsp()
 
 -- load all plugins/*.lua files
 require("lazy").setup("plugins")

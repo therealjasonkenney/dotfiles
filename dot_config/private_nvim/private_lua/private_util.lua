@@ -8,10 +8,20 @@ local notifier = function(msg, level, title)
 	end)
 end
 
+---Finds a git project root, which can be a default for some
+---lsps.
+---@return string?
+M.git_project_dir = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  return vim.fs.root(bufnr, { ".git" })
+end
+
 ---comment ensures a tool is installed via mason.
 ---See: https://github.com/mason-org/mason-registry
 ---@param name string tool name as found in mason-registry
-M.ensure_installed = function(name)
+---@param on_installed function callback that when the tool is installed.
+M.ensure_installed = function(name, on_installed)
 	local reg = require("mason-registry")
 
 	local on_fail = notifier(string.format("%s: install failed", name), vim.log.levels.ERROR, "mason")
@@ -24,21 +34,12 @@ M.ensure_installed = function(name)
 		if not pkg:is_installed() then
 			pkg:once("install:failed", on_fail)
 			pkg:once("install:success", on_success)
+      pkg:once("install:success", on_installed)
 			pkg:install({})
+    else
+      on_installed()
 		end
 	end)
-end
-
----Finds the first parent directory containing a file in file_list
----for the current buffer.
----
----Used for LSP configuration
----@param file_list string[]
----@return string | nil
-M.get_root_dir = function(file_list)
-	local bufnr = vim.api.nvim_get_current_buf()
-
-	return vim.fs.root(bufnr, file_list)
 end
 
 ---comment Checks and returns true if a floating window is already open.

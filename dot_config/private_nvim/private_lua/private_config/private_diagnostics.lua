@@ -1,31 +1,18 @@
-local function float_prefix(diagnostic, i, total)
-	local prefixes = {}
+local M = {}
 
-	prefixes[vim.diagnostic.severity.ERROR] = "E"
-	prefixes[vim.diagnostic.severity.HINT] = "H"
-	prefixes[vim.diagnostic.severity.INFO] = "I"
-	prefixes[vim.diagnostic.severity.WARN] = "W"
-
-	local format = "[%1s (%02d/%02d)]: "
-	local sign = prefixes[diagnostic.severity]
-
-	return string.format(format, sign, i, total)
+---configures the builtin diagnostics
+---we use a plugin to render the virtual text
+---when our cursor is on the diagnostic position.
+---@return vim.diagnostic.Opts
+M.config = function()
+  return {
+    float = false,
+    severity_sort = false,
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    virtual_text = false,
+  }
 end
 
-return {
-	setup = function()
-		vim.diagnostic.config({
-			float = {
-				border = "rounded",
-				source = true,
-				header = "Diagnostics\n--------",
-				prefix = float_prefix,
-			},
-			severity_sort = false,
-			signs = true,
-			underline = true,
-			update_in_insert = false,
-			virtual_text = false,
-		})
-	end,
-}
+return M

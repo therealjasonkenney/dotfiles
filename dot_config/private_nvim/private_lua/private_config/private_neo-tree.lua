@@ -1,33 +1,30 @@
 local M = {}
 
-M.plugin_opts = function()
-	return {
-		default_component_configs = {
-			git_status = {
-				symbols = {
-					added = "[a]",
-					deleted = "[d]",
-					modified = "[m]",
-					renamed = "[r]",
-					untracked = "?",
-					ignored = "",
-					unstaged = "!",
-					staged = "+",
-					conflict = "c",
-				},
-			},
-			icon = {
-				folder_closed = "[ ]",
-				folder_open = "[>]",
-				folder_empty = "[-]",
-				default = "-",
-			},
-			indent = {
-				expander_collapsed = "",
-				expander_expanded = "",
-			},
-		},
-	}
+local function close_all()
+  require("neo-tree.command").execute({ action = "close" })
+end
+
+local function open_fs()
+  require("neo-tree.command").execute({ source = "filesystem" })
+end
+
+---runs when the NeoTree plugin is loaded.
+--- * Automatically closes any neotree windows on quit.
+--- * Enables the winbar.
+M.config = function()
+  require("neo-tree").setup({
+    source_selector = {
+      winbar = true,
+    },
+  })
+
+  local augroup = vim.api.nvim_create_augroup("Neotree", { clear = false })
+
+  vim.api.nvim_create_autocmd("QuitPre", {
+    callback = close_all,
+    desc = "Close neotree on quit.",
+    group = augroup,
+  })
 end
 
 return M

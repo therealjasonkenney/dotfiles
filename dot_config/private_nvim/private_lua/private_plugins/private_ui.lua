@@ -1,3 +1,6 @@
+local config = require("config")
+local setup = require("setup")
+
 return {
   {
     "pappasam/papercolor-theme-slim",
@@ -11,17 +14,10 @@ return {
   {
     "vimpostor/vim-lumen",
   },
-  -- Make search highlights go away after you enter insert mode.
   {
-    "asiryk/auto-hlsearch.nvim",
-    config = true,
-  },
-  -- Lualine status bar
-  -- See: https://github.com/nvim-lualine/lualine.nvim/blob/master/README.md
-  {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    opts = require("config.lualine").plugin_opts,
+    "echasnovski/mini.nvim",
+    init = setup.mini,
+    version = "*", -- Use stable branch.
   },
   -- File Manager
   {
@@ -31,20 +27,45 @@ return {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
     },
-    keys = {
-      {
-        "<leader>nf",
-        ":Neotree filesystem reveal left<CR>",
-        desc = "[n]eotree: open [f]ile explorer",
+    config = config.neotree,
+    lazy = true,
+  },
+  -- Debug UI
+  {
+    "rcarriga/nvim-dap-ui",
+    config = config.dapui,
+    dependencies = { "nvim-neotest/nvim-nio" },
+    lazy = true,
+  },
+  -- Render diagnostics with multiple lines using
+  -- wrapping and highlighting and don't
+  -- have them overflow the text we need to edit.
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    priority = 1000,
+    opts = {
+      break_line = {
+        enabled = true,
+      },
+      multilines = {
+        always_show = true,
+        enabled = true,
       },
     },
-    opts = require("config.neo-tree").plugin_opts(),
   },
-  -- Diagnostics/doc refs ui -- when needed.
+  -- Diagnostics / LSP / QuickFix UI
   {
     "folke/trouble.nvim",
-    opts = {},
+    config = config.trouble,
     cmd = "Trouble",
+    init = function()
+      vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+        callback = function()
+          vim.cmd([[Trouble qflist open]])
+        end,
+      })
+    end,
     lazy = true,
   },
   {
