@@ -31,3 +31,12 @@ later(function()
     },
   })
 end)
+
+-- Disable default formatting keymaps (they will be added
+-- back if supported.)
+later(function()
+  local unmap = vim.keymap.del
+
+  -- unmap("n", "gw")
+  -- unmap("n", "gq")
+end)

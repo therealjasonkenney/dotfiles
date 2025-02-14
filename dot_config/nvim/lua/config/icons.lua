@@ -8,6 +8,7 @@ M.config = function()
 
   if util.supports_glyph() then
     return {
+      code_action = "💡",
       error = " ",
       info = " ",
       hint = "󰘥 ",
@@ -15,6 +16,7 @@ M.config = function()
     }
   else
     return {
+      code_action = "A",
       error = "E",
       info = "I",
       hint = "H",

@@ -25,7 +25,6 @@
 -- * LuaSnips Snippets (with rails snippets)
 --
 -- ----------------------------------------------------------------------------
-local add = MiniDeps.add
 local util = require("util")
 
 local bufnr = vim.api.nvim_get_current_buf()
@@ -38,13 +37,40 @@ end)
 -- shims, this is still... dangerous because the shims might get
 -- their wires crossed, but I have yet to think of a better solution
 -- for the moment :(
+local bundle = vim.fn.expand("$HOME/.local/share/asdf/shims/bundle")
 local cmd = vim.fn.expand("$HOME/.local/share/asdf/shims/ruby-lsp")
 
 local root_dir = vim.fs.root(bufnr, { "Gemfile" })
 
 -- Setup debugger
-require("dap-ruby").setup()
 util.enable_dap(bufnr)
+
+local dap = require("dap")
+
+dap.adapters.ruby = function(callback)
+  callback({
+    type = "server",
+    host = "127.0.0.1",
+    port = "${port}",
+    executable = {
+      command = bundle,
+      args = {
+        "exec",
+        "rdbg",
+        "-A",
+      },
+    },
+  })
+end
+
+dap.configurations.ruby = {
+  {
+    type = "ruby",
+    name = "attach to running process",
+    request = "attach",
+    localfs = true,
+  },
+}
 
 if root_dir then
   -- Setup neotest
@@ -82,6 +108,7 @@ if root_dir then
     capabilities = vim.lsp.protocol.make_client_capabilities(),
     cmd = { cmd },
     filetypes = { "eruby", "ruby" },
+    on_init = util.add_cmp_capabilities,
     settings = {
       rubyLsp = {
         enabledFeatures = {

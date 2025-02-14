@@ -1,5 +1,10 @@
 local M = {}
 
+local json_decoder = function(str)
+  local json = require("plenary.json")
+  return vim.json.decode(json.json_strip_comments(str))
+end
+
 local openui = function()
   require("dapui").open({})
 end
@@ -15,17 +20,21 @@ M.enable_dap = function(bufnr)
   local dapui = require("dapui")
   local map = vim.keymap.set
   local listeners = dap.listeners.before
+  local vscode = require("dap.ext.vscode")
 
   -- Setup virtual text
-  require("nvim-dap-virtual-text").setup({})
+  require("nvim-dap-virtual-text").setup()
 
   -- Setup UI
-  dapui.setup({})
+  dapui.setup()
 
   listeners.attach.dapui_config = openui
   listeners.launch.dapui_config = openui
   listeners.event_terminated.dapui_config = closeui
   listeners.event_exited.dapui_config = closeui
+
+  -- Allow dap to use .vscode/launch.json
+  vscode.json_decode = json_decoder
 
   -- Setup keymaps.
   map(

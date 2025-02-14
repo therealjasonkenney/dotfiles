@@ -33,25 +33,21 @@ local setup = require("setup")
 -- Must set leader before loading lazy
 vim.g.mapleader = " "
 
+-- Setup neovide before anything else.
 if vim.g.neovide then
-  vim.g.neovide_fullscreen = true
-  vim.opt.guifont = "Hack:h24"
+  setup.neovide()
 end
 
--- Setup and load lazy
+-- Setup and load mini.deps plugin.
 setup.mini()
 
--- Install plugins
+setup.setup_colorscheme()
+
+setup.set_defaults()
+
 setup.install_plugins()
 
--- Color Scheme
-vim.cmd.colorscheme({ "PaperColorSlim" })
-
--- OS specific settings
-vim.opt.shell = "/bin/sh"
-
 -- Load dependencies before anything in `after/plugins`
-
 require("mini.icons").setup()
 require("mini.diff").setup()
 require("mini.git").setup()

@@ -11,7 +11,7 @@ local config = wezterm.config_builder()
 
 config.color_scheme = "PaperColor Light (base16)"
 
-config.font = wezterm.font("Hack Nerd Font Mono")
+config.font = wezterm.font("Hack")
 config.font_size = 24.0
 
 config.native_macos_fullscreen_mode = true

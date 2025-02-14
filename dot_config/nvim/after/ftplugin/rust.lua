@@ -37,19 +37,12 @@ local root_dir = workspace_root()
 if root_dir and vim.fn.filereadable(root_dir .. "/.vscode/launch.json") then
   util.ensure_installed("codelldb", function()
     local dap = require("dap")
-    local json = require("plenary.json")
-    local vscode = require("dap.ext.vscode")
 
     -- codelldb default configuration.
     dap.adapters.codelldb = {
       type = "executable",
       command = util.mason_path() .. "/codelldb",
     }
-
-    -- Load project config via launch.json
-    vscode.json_decode = function(str)
-      return vim.json.decode(json.json_strip_comments(str))
-    end
 
     util.enable_dap(bufnr)
   end)

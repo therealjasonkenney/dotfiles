@@ -16,7 +16,4 @@ local util = require("util")
 
 local bufnr = vim.api.nvim_get_current_buf()
 
--- Ensure we have the html treesitter available.
-vim.cmd.TSInstall({ "html" })
-
 util.enable_formatting(bufnr, false)

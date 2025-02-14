@@ -102,8 +102,6 @@ M.install_plugins = function()
     },
   })
 
-  add("pappasam/papercolor-theme-slim")
-
   add({
     source = "MeanderingProgrammer/render-markdown.nvim",
     depends = {

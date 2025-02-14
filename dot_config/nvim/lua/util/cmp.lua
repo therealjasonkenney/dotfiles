@@ -31,12 +31,12 @@ M.cmp_format = function(entry, vim_item)
   local default_menu = "[" .. entry.source.name .. "]"
 
   vim_item.menu = ({
-    buffer = get_icon("lsp", "file"),
+    buffer = "[B ]",
     treesitter = "[TS]",
-    nvim_lsp = get_icon("filetype", vim.bo.filetype),
-    nvim_lsp_signature_help = get_icon("filetype", vim.bo.filetype),
-    luasnip = get_icon("lsp", "snippet"),
-    friendly_snippets = get_icon("lsp", "snippet"),
+    nvim_lsp = "[LS]",
+    nvim_lsp_signature_help = "[LS]",
+    luasnip = "[S ]",
+    friendly_snippets = "[S ]",
   })[entry.source.name] or default_menu
 
   return vim_item
