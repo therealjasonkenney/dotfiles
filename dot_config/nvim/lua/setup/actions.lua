@@ -143,21 +143,8 @@ end
 
 M.set_defaults = function()
   local icons = require("config").icons()
-  local lsp = require("setup.lsp")
   local map = vim.keymap.set
   local opt = vim.opt
-
-  -- Add gotmpl filetype
-  vim.filetype.add({
-    extension = {
-      tmpl = "gotmpl",
-    },
-    pattern = {
-      [".*/chezmoi/*.fish.%"] = "fish",
-      [".*/chezmoi/*.sh.%"] = "sh",
-      [".*/chezmoi/*.toml.%"] = "toml",
-    },
-  })
 
   -- Defaults, may be overridden in ftplugin files
 
@@ -204,20 +191,6 @@ M.set_defaults = function()
     desc = "Setup LSP Defaults",
     group = augroup,
   })
-
-  -- callback = function(args)
-  -- local util = require("util.lsp")
-
-  -- local bufnr = args.buf
-  -- local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-  -- if not client then
-  -- print("Client not found.")
-  -- return
-  -- end
-
-  -- end,
-  -- })
 
   -- Move selected text as a group
   map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
