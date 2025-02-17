@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+#
+
+export CARGO_HOME="$HOME/.local/cargo"
+export RUSTUP_HOME="$HOME/.local/rustup"
+export RUST_TOOLCHAIN=stable
+
+{{ if has "hobbydev" .profiles }}
+
+  if [ ! -d "$RUSTUP_HOME" ]; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  fi
+
+  "$HOME/.local/cargo/bin/rustup" update
+
+{{ else }}
+
+  if [ -d "$RUSTUP_HOME" ]; then
+    rm -rf "$RUSTUP_HOME"
+  fi
+
+  if [ -d "$CARGO_HOME" ]; then
+    rm -rf "$CARGO_HOME"
+  fi
+
+{{ end }}

@@ -1,0 +1,44 @@
+#!/usr/bin/env sh
+
+ASDF_DIR="$HOME/.local/share/asdf"
+ASDF_DATA_DIR="$ASDF_DIR"
+
+ARCH=$(uname -m)
+OS=$(uname -s)
+
+{{ if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "amd64") }}
+  PATH="/usr/local/bin:$PATH"
+{{ end }}
+
+{{ if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
+# Homebrew on OSX (Arm) puts everything in /opt/homebrew
+  PATH="/opt/homebrew/bin:$PATH"
+{{ end }}
+
+{{ if or (has "hobbydev" .profiles) (has "work" .profiles) }}
+  # Install ASDF if it does not exist.
+  if [ ! -d "$ASDF_DIR" ]; then
+    echo "Installing ASDF"
+    git clone https://github.com/asdf-vm/asdf.git "$ASDF_DIR" --branch v0.14.1
+  fi
+
+  # Load ASDF
+  . "$ASDF_DIR/asdf.sh"
+
+  asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
+  asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git || true
+{{ else }}
+  if [ -d "$ASDF_DIR" ]; then
+    echo "Removing ASDF"
+
+    rm -rf "$ASDF_DIR"
+  fi
+{{ end }}
+
+{{if has "hobbydev" .profiles }}
+  asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git || true
+{{else}}
+  asdf plugin remove elixir || true
+{{end}}
+
+

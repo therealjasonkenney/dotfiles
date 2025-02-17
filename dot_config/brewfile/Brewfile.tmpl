@@ -1,0 +1,136 @@
+# This is the brewfile for my home development machines.
+# MacOS build version: {{ output "sw_vers" "--buildVersion" }}
+
+cask_args(require_sha: true, no_quarantine: true)
+
+brew "mas"                              # Mac App Store.
+mas "Awareness Timer",  id: 1497695227
+mas "CARROT Weather",   id: 993487541
+{{- if has "work" .profiles }}
+cask "chrome"
+{{- end }}
+{{- if has "personal" .profiles }}
+cask "discord"                          # Tabletop RPGs.
+{{- end }}
+cask "firefox"                          # Roll 20 / site testing
+cask "keka"                             # Unarchive utility.
+{{- if has "personal" .profiles }}
+mas "Microsoft Excel",    id: 462058435
+mas "Microsoft OneDrive", id: 823766827
+mas "Microsoft Word",     id: 462054704
+{{- end }}
+cask "phoenix-slides"                   # Image Folder browser.
+{{- if has "work" .profiles }}
+cask "slack"
+{{- end }}
+{{- if has "personal" .profiles }}
+cask "steam"                            # Video Games
+{{- end }}
+cask "vlc"                              # Video Player.
+
+{{- if has "academic" .profiles }}
+# Academic Writing / Classwork
+cask "endnote",  args: { require_sha: false} # Manage References
+cask "zoom"                                  # Online classroom
+{{- end }}
+
+# Auth to git via yubikey
+brew "gpg2"
+brew "pinentry-mac"
+brew "ykman"
+
+{{- if has "bgdev" .profiles }}
+# Board Game Design
+mas "Affinity Designer 2",      id: 1616831348
+mas "Affinity Publisher 2",     id: 1606941598
+cask "font-charis-sil"  # Font used for board games.
+{{- end }}
+
+# Dev Toolbox
+brew "bat"                  # CLI source code viewer
+{{- if eq .editor "bbedit" }}
+cask "bbedit"               # BBedit Text Editor, requires License.
+{{- end }}
+{{- if or (has "hobbydev" .profiles) (has "work" .profiles) }}
+brew "coreutils"            # ASDF dependency
+brew "curl"                 # ASDF dependency
+{{- end }}
+brew "fd"                   # find replacement.
+{{- if eq .shell "fish" }}
+brew "fish"                 # Friendly Interactive Shell
+{{- end }}
+{{- if has "imagemagick" .enabled }}
+  brew "imagemagick"        # Image transformation/conversion tools.
+{{- end }}
+{{- if or (eq .editor "neovim") (eq .terminal "wezterm") }}
+cask "font-hack-nerd-font"  # Font used for Terminal and NeoVim
+{{- end }}
+brew "git"                  # Version Control
+{{- if has "hobbydev" .profiles }}
+brew "git-lfs"              # LFS support
+{{- end }}
+{{- if or (has "hobbydev" .profiles) (has "work" .profiles) }}
+brew "gmp"                  # Needed for ruby plugin.
+brew "libyaml"              # Needed for ruby plugin.
+{{- end }}
+{{- if eq .editor "neovim" }}
+cask "neovide"              # NeoVim GUI frontend.
+brew "neovim"               # Modal text editor.
+{{- end }}
+{{- if has "personal" .profiles }}
+mas "Omnigraffle 7",        id: 1142578753
+{{- end }}
+{{- if has "postgres" .enabled }}
+cask "postgres-unofficial"  # Postgres.app
+{{- end }}
+{{- if has "postico" .enabled }}
+mas "Postico 2", id: 6446933691
+{{- end }}
+brew "ripgrep"              # CLI Text Search
+brew "sk"                   # Fuzzy finder (used in neovim's fzf plugin)
+brew "starship"             # Starship Prompt.
+{{- if eq .terminal "wezterm" }}
+cask "wezterm"              # Terminal Emulator
+{{- end }}
+{{- if or (has "hobbydev" .profiles) (has "work" .profiles") }}
+mas "Xcode",     id: 497799835
+{{- end }}
+{{- if eq .mux "zellij" }}
+brew "zellij"               # Terminal Muxer
+{{- end }}
+
+{{- if has "hobbydev" .profiles }}
+# Hobby Coding
+cask "basictex"             # Typesetting
+brew "cmake"                # C/C++ Build tool.
+brew "erlang@27"            # Needed for elixir plugin.
+brew "qemu"                 # CPU Emulator for low-level coding.
+cask "raspberry-pi-imager"  # Raspberry PI Imager Tool
+tap  "sass/sass"
+brew "sass"                 # Sass Compiler
+
+# Game Dev Hobby
+cask "blender" # 3D Modeling software.
+cask "godot"   # GODOT Game Engine
+cask "renpy"   # Ren'Py Visual Novel Engine
+{{- end }}
+
+{{- if has "novelist" .profiles }}
+# Novel Writing
+mas "Remarkable Desktop", id: 1276493162  # Remarkable is a writing tablet.
+cask "scrivener"                          # Novel writing software.
+{{- end }}
+
+{{- if has "transcoding" .profiles }}
+# Video Transcoding
+brew "ffmpeg"
+cask "handbrake"
+{{- end }}
+
+{{- if has "afinity_photo" .enabled }}
+mas "Affinity Photo 2",         id: 1616822987
+{{- end }}
+{{- if has "corel_painter" .enabled }}
+mas "Corel Painter Essentials", id: 1475152238
+{{- end -}}
+

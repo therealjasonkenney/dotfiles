@@ -1,0 +1,52 @@
+README.md
+.DS_Store
+.gitignore
+LICENSE
+src
+
+{{ if not (eq .chezmoi.os "darwin") }}
+.config/fish/homebrew.fish
+run_onchange_after_setup-dock.sh.tmpl
+run_once_after_setup.fish.tmpl
+{{ end }}
+
+{{ if not (or (has "hobbydev" .profiles) (has "work" .profiles)) }}
+.config/fish/conf.d/asdf.fish
+.config/fish/functions/asdf.fish
+.config/fish/conf.d/node.fish
+.config/fish/conf.d/ruby.fish
+.config/nvim/after/ftplugins/eruby.lua
+.config/nvim/after/ftplugins/ruby.lua
+.config/nvim/after/ftplugins/javascript.lua
+.config/nvim/after/ftplugins/javascriptreact.lua
+.config/nvim/after/ftplugins/typescript.lua
+.config/nvim/after/ftplugins/typescriptreact.lua
+{{ end }}
+
+{{ if not (has "hobbydev" .profiles) }}
+.config/fish/conf.d/rust.fish
+.config/nvim/ftplugin/c.lua
+.config/nvim/elixir.lua
+.config/nvim/gdscript.lua
+.config/nvim/python.lua
+.config/nvim/sass.lua
+.config/nvim/after/ftplugins/rust.lua
+{{ end }}
+
+{{ if not (eq .editor "bbedit") }}
+.config/fish/conf.d/bbedit.fish
+{{ end }}
+
+{{ if not (eq .shell "fish") }}
+.config/fish
+{{ end }}
+
+{{ if not (eq .editor "neovim") }}
+.config/nvim
+.config/fish/conf.d/nvim.fish
+{{ end }}
+
+{{ if not (eq .terminal "wezterm") }}
+.config/wezterm
+{{- end }}
+
