@@ -23,9 +23,6 @@ cask "phoenix-slides"                   # Image Folder browser.
 {{- if has "work" .profiles }}
 cask "slack"
 {{- end }}
-{{- if has "personal" .profiles }}
-cask "steam"                            # Video Games
-{{- end }}
 cask "vlc"                              # Video Player.
 
 {{- if has "academic" .profiles }}
@@ -92,10 +89,10 @@ brew "starship"             # Starship Prompt.
 {{- if eq .terminal "wezterm" }}
 cask "wezterm"              # Terminal Emulator
 {{- end }}
-{{- if or (has "hobbydev" .profiles) (has "work" .profiles") }}
+{{- if or (has "hobbydev" .profiles) (has "work" .profiles) }}
 mas "Xcode",     id: 497799835
 {{- end }}
-{{- if eq .mux "zellij" }}
+{{- if has "zellij" .enabled }}
 brew "zellij"               # Terminal Muxer
 {{- end }}
 

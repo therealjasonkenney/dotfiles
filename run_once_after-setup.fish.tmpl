@@ -1,4 +1,4 @@
-{{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
+{{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") -}}
 #!/opt/homebrew/bin/fish
 
 fish_add_path /opt/homebrew/bin
@@ -6,7 +6,7 @@ fish_add_path /opt/homebrew/bin
 set -Ux XDG_CACHE_HOME {$HOME}/Library/Caches
 
 {{- end }}
-{{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "amd64") }}
+{{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "amd64") -}}
 #!/usr/local/bin/fish
 
 fish_add_path /usr/local/bin

@@ -10,22 +10,15 @@ case $OS in
     export HOMEBREW_BUNDLE_FILE_GLOBAL="$HOME/.config/brewfile/Brewfile"
 
     if [ "$ARCH" = "arm64" ]; then
-      BREW="/opt/homebrew/bin/brew"
+      eval "$(/opt/homebrew/bin/brew shellenv)"
     else
-      BREW="/usr/local/bin/brew"
+      eval "$(/usr/local/bin/brew shellenv)"
     fi
-
-    # Install homebrew if it does not exist.
-    if [ ! command -v "$BREW" ] ; then
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-
-    eval "$($BREW shellenv)"
-
-    brew upgrade
 
     brew bundle install --cleanup --zap --global
 
+    brew upgrade
+    ;;
   *)
     xargs sudo apt-get -y install < "$HOME/.config/packages.txt"
     ;;

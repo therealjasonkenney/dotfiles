@@ -147,6 +147,18 @@ M.set_defaults = function()
   local map = vim.keymap.set
   local opt = vim.opt
 
+  -- Add gotmpl filetype
+  vim.filetype.add({
+    extension = {
+      tmpl = "gotmpl",
+    },
+    pattern = {
+      [".*/chezmoi/*.fish.%"] = "fish",
+      [".*/chezmoi/*.sh.%"] = "sh",
+      [".*/chezmoi/*.toml.%"] = "toml",
+    },
+  })
+
   -- Defaults, may be overridden in ftplugin files
 
   opt.confirm = true

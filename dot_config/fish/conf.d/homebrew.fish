@@ -9,5 +9,5 @@ end
 status is-interactive; and type -q brew; and begin
   # This is for when you want to call brew bundle install, it will
   # use this file (installed by chezmoi) as the default.
-  set -gx HOMEBREW_BUNDLE_FILE_GLOBAL ${HOME}/.config/brewfile/Brewfile
+  set -gx HOMEBREW_BUNDLE_FILE_GLOBAL {$HOME}/.config/brewfile/Brewfile
 end

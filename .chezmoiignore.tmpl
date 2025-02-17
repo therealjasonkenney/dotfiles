@@ -6,6 +6,7 @@ src
 
 {{ if not (eq .chezmoi.os "darwin") }}
 .config/fish/homebrew.fish
+run_once_before-install-homebrew.sh
 run_onchange_after_setup-dock.sh.tmpl
 run_once_after_setup.fish.tmpl
 {{ end }}
@@ -50,3 +51,7 @@ run_once_after_setup.fish.tmpl
 .config/wezterm
 {{- end }}
 
+{{ if not (has "zellij" .enabled) }}
+.config/fish/conf.d/zellij.fish
+.config/zellij
+{{ end }}
