@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+#
+
+# Update bat theme cache.
+# .config/bat/config: {{ include (print .chezmoi.homeDir "/.config/bat/config") | sha256sum }}
+
+{{- if eq .chezmoi.os "darwin" -}}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+if [ ! -x bat ]; then
+  echo "Installing bat"
+  /opt/homebrew/bin/brew install bat
+fi
+
+/opt/homebrew/bin/bat cache --clear || true
+/opt/homebrew/bin/bat cache --build
+
+{{- end }}

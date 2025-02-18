@@ -6,9 +6,10 @@ src
 
 {{ if not (eq .chezmoi.os "darwin") }}
 .config/fish/homebrew.fish
+.config/fish/cache.fish
+.local/share/sh/darwin.arm.env.sh
 run_once_before-install-homebrew.sh
 run_onchange_after_setup-dock.sh.tmpl
-run_once_after_setup.fish.tmpl
 {{ end }}
 
 {{ if not (or (has "hobbydev" .profiles) (has "work" .profiles)) }}
@@ -40,6 +41,7 @@ run_once_after_setup.fish.tmpl
 
 {{ if not (eq .shell "fish") }}
 .config/fish
+run_once_after_setup-fish.sh
 {{ end }}
 
 {{ if not (eq .editor "neovim") }}

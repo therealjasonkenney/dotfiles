@@ -3,17 +3,23 @@
 
 cask_args(require_sha: true, no_quarantine: true)
 
+{{- if has "personal" .profiles }}
 brew "mas"                              # Mac App Store.
 mas "Awareness Timer",  id: 1497695227
 mas "CARROT Weather",   id: 993487541
-{{- if has "work" .profiles }}
-cask "chrome"
+{{- end }}
+brew "chezmoi"
+{{- if has "chrome" .enabled }}
+cask "google-chrome"
 {{- end }}
 {{- if has "personal" .profiles }}
 cask "discord"                          # Tabletop RPGs.
 {{- end }}
 cask "firefox"                          # Roll 20 / site testing
 cask "keka"                             # Unarchive utility.
+{{- if has "work" .profiles}}
+cask "keybase"
+{{- end }}
 {{- if has "personal" .profiles }}
 mas "Microsoft Excel",    id: 462058435
 mas "Microsoft OneDrive", id: 823766827
@@ -22,6 +28,7 @@ mas "Microsoft Word",     id: 462054704
 cask "phoenix-slides"                   # Image Folder browser.
 {{- if has "work" .profiles }}
 cask "slack"
+brew "tailscale"
 {{- end }}
 cask "vlc"                              # Video Player.
 
@@ -89,7 +96,7 @@ brew "starship"             # Starship Prompt.
 {{- if eq .terminal "wezterm" }}
 cask "wezterm"              # Terminal Emulator
 {{- end }}
-{{- if or (has "hobbydev" .profiles) (has "work" .profiles) }}
+{{- if has "hobbydev" .profiles }}
 mas "Xcode",     id: 497799835
 {{- end }}
 {{- if has "zellij" .enabled }}

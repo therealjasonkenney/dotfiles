@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+#
+
+# Brewfile: {{ include (print .chezmoi.homeDir "/.config/brewfile/Brewfile") | sha256sum }}
+
+export HOMEBREW_BUNDLE_FILE_GLOBAL="$HOME/.config/brewfile/Brewfile"
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+brew bundle install --cleanup --zap --global

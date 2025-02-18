@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+#
+# src/gpg.ownertrust.txt: {{ include "src/gpg.ownertrust.txt" | sha256sum }}
+
+{{- if eq .chezmoi.os "darwin" -}}
+PATH="/opt/homebrew/bin:$PATH"
+
+if [ ! -x gpg ]; then
+  eval "$(brew shellenv)"
+
+  brew install gpg2
+fi
+{{- end }}
+
+GNUPGHOME="$HOME/.local/share/gnupg"
+
+mkdir -p "$GNUPGHOME"
+chmod 700 "$GNUPGHOME"
+
+gpg --homedir "$GNUPGHOME" -k
+
+# Import public keys and trust values
+gpg --homedir "$GNUPGHOME" --import-ownertrust "$HOME/.local/share/chezmoi/src/gpg.ownertrust.txt"
+gpg --homedir "$GNUPGHOME" --import "$HOME/.local/share/chezmoi/src/yk.public.asc"
+gpg --homedir "$GNUPGHOME" --import "$HOME/.local/share/chezmoi/src/ameelio.public.asc"

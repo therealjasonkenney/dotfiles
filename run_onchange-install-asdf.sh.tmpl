@@ -38,7 +38,10 @@ OS=$(uname -s)
 {{if has "hobbydev" .profiles }}
   asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git || true
 {{else}}
-  asdf plugin remove elixir || true
+
+  if [ -x asdf ]; then
+    asdf plugin remove elixir || true
+  fi
 {{end}}
 
 
