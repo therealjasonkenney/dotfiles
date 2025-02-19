@@ -1,0 +1,7 @@
+{{- if hasKey . "github" -}}
+Host github.com
+  IdentityFile ~/.ssh/{{ .github.identity_file }}
+  IdentitiesOnly yes
+  PreferredAuthentications publickey
+  User git
+{{- end }}

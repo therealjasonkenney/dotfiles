@@ -1,5 +1,0 @@
-Host gitlab.com
-  IdentityFile ~/.ssh/yubikey.pub
-  IdentitiesOnly yes
-  PreferredAuthentications publickey
-  User git
