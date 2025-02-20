@@ -2,6 +2,7 @@
 
 local M = vim.tbl_extend(
   "error",
+  require("util.comments"),
   require("util.conform"),
   require("util.dap"),
   require("util.dictionary"),

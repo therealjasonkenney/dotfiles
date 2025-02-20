@@ -43,12 +43,9 @@ util.ensure_installed("lua-language-server", function()
     root_dir = vim.fs.root(bufnr, { ".luarc.json" }),
   })
 
-  vim.keymap.set(
-    "n",
-    "<leader>h",
-    "1GI<CR><ESC>1GI-- <ESC>77a-<ESC>i<CR><CR><ESC>75a-<ESC>1kA",
-    { desc = "Add comment header to lua file" }
-  )
+  vim.keymap.set("n", "<leader>h", function()
+    util.add_header("--")
+  end, { desc = "Add comment header to lua file" })
 end)
 
 -- Enable formatting via conform, do not use the lsp.
