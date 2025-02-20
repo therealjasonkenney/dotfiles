@@ -3,6 +3,12 @@ status is-interactive; and begin
   # ruby.
   set -gx ASDF_GEM_DEFAULT_PACKAGES_FILE "$HOME/.config/asdf/default-gems"
 
+  # Set bundler files to use XDG based variables
+
+  set -gx BUNDLE_USER_CACHE "$XDG_CACHE_HOME/bundle"
+  set -gx BUNDLE_USER_CONFIG "$HOME/.config/bundle/config"
+  set -gx BUNDLE_USER_HOME "$HOME/.local/share/bundle"
+
   # Setup ruby debugger.
   if type -q rbdg
     set -gx RUBY_DEBUG_OPEN true

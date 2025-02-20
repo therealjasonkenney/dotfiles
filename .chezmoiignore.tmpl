@@ -13,6 +13,7 @@ run_onchange_after_setup-dock.sh.tmpl
 {{ end }}
 
 {{ if not (or (has "hobbydev" .profiles) (has "work" .profiles)) }}
+.config/bundle
 .config/fish/conf.d/asdf.fish
 .config/fish/functions/asdf.fish
 .config/fish/conf.d/node.fish

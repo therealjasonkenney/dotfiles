@@ -1,0 +1,2 @@
+---
+BUNDLE_BUILD__IDN___RUBY: "--with-idn-dir=/opt/homebrew/opt/libidn"
