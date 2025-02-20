@@ -9,17 +9,11 @@ mas "Awareness Timer",  id: 1497695227
 mas "CARROT Weather",   id: 993487541
 {{- end }}
 brew "chezmoi"
-{{- if has "chrome" .enabled }}
-cask "google-chrome"
-{{- end }}
 {{- if has "personal" .profiles }}
 cask "discord"                          # Tabletop RPGs.
 {{- end }}
 cask "firefox"                          # Roll 20 / site testing
 cask "keka"                             # Unarchive utility.
-{{- if has "work" .profiles}}
-cask "keybase"
-{{- end }}
 {{- if has "personal" .profiles }}
 mas "Microsoft Excel",    id: 462058435
 mas "Microsoft OneDrive", id: 823766827
@@ -59,6 +53,8 @@ cask "bbedit"               # BBedit Text Editor, requires License.
 brew "coreutils"            # ASDF dependency
 brew "curl"                 # ASDF dependency
 {{- end }}
+brew "direnv"               # Set environment variables when in a directory
+                            # with an .envrc or .env file.
 brew "fd"                   # find replacement.
 {{- if eq .shell "fish" }}
 brew "fish"                 # Friendly Interactive Shell
@@ -68,6 +64,9 @@ brew "fish"                 # Friendly Interactive Shell
 {{- end }}
 {{- if or (eq .editor "neovim") (eq .terminal "wezterm") }}
 cask "font-hack-nerd-font"  # Font used for Terminal and NeoVim
+{{- end }}
+{{- if eq .editor "neovim" }}
+brew "fish-lsp"             # LSP for fish (not able to be installed via mason)
 {{- end }}
 brew "git"                  # Version Control
 {{- if has "hobbydev" .profiles }}
@@ -103,6 +102,13 @@ mas "Xcode",     id: 497799835
 brew "zellij"               # Terminal Muxer
 {{- end }}
 
+{{- if has "work" .profiles }}
+# Canvas dependencies
+cask "chromedriver"
+brew "getsentry/tools/sentry-cli"
+brew "libidn"
+brew "libxmlsec1"
+{{- end }}
 {{- if has "hobbydev" .profiles }}
 # Hobby Coding
 cask "basictex"             # Typesetting
