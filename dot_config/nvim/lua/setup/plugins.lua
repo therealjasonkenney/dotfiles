@@ -11,6 +11,7 @@
 -- |                        |        | debuggers.                             |
 -- | cmp                    | All    | Auto-completion.                       |
 -- | elixir-tools           |       | Configures and installs elixir LSP.    |
+-- | fugitive               | All    | Git integration                        |
 -- | img-clip               | 󰍔      | Generate markdown from pasting an img. |
 -- | mason                  |        | Manages and installs formatters,       |
 -- |                        |        | linters, and language servers.         |
@@ -33,112 +34,114 @@
 local M = {}
 
 M.install_plugins = function()
-  local add = MiniDeps.add
+	local add = MiniDeps.add
 
-  add("stevearc/conform.nvim")
+	add("stevearc/conform.nvim")
 
-  add({
-    source = "asiryk/auto-hlsearch.nvim",
-    checkout = "1.1.0",
-  })
+	add({
+		source = "asiryk/auto-hlsearch.nvim",
+		checkout = "1.1.0",
+	})
 
-  add({
-    source = "hrsh7th/nvim-cmp",
-    depends = {
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "saadparwaiz1/cmp_luasnip",
-      "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets",
-      "ray-x/cmp-treesitter",
-    },
-  })
+	add({
+		source = "hrsh7th/nvim-cmp",
+		depends = {
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"saadparwaiz1/cmp_luasnip",
+			"L3MON4D3/LuaSnip",
+			"rafamadriz/friendly-snippets",
+			"ray-x/cmp-treesitter",
+		},
+	})
 
-  add({
-    source = "mfussenegger/nvim-dap",
-    depends = {
-      "nvim-lua/plenary.nvim",
-      "nvim-neotest/nvim-nio",
-      "rcarriga/nvim-dap-ui",
-      "theHamsta/nvim-dap-virtual-text",
-      "suketa/nvim-dap-ruby",
-    },
-  })
+	add({
+		source = "mfussenegger/nvim-dap",
+		depends = {
+			"nvim-lua/plenary.nvim",
+			"nvim-neotest/nvim-nio",
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"suketa/nvim-dap-ruby",
+		},
+	})
 
-  add({
-    source = "elixir-tools/elixir-tools.nvim",
-    depends = { "nvim-lua/plenary.nvim" },
-  })
+	add({
+		source = "elixir-tools/elixir-tools.nvim",
+		depends = { "nvim-lua/plenary.nvim" },
+	})
 
-  add("HakonHarnes/img-clip.nvim")
+	add("tpope/vim-fugitive")
 
-  add({
-    source = "williamboman/mason.nvim",
-    hooks = {
-      post_checkout = function()
-        vim.cmd("MasonUpdate")
-      end,
-    },
-  })
+	add("HakonHarnes/img-clip.nvim")
 
-  add({
-    source = "nvim-neotest/neotest",
-    depends = {
-      "nvim-neotest/nvim-nio",
-      "nvim-lua/plenary.nvim",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "olimorris/neotest-rspec",
-    },
-  })
+	add({
+		source = "williamboman/mason.nvim",
+		hooks = {
+			post_checkout = function()
+				vim.cmd("MasonUpdate")
+			end,
+		},
+	})
 
-  add({
-    source = "nvim-neo-tree/neo-tree.nvim",
-    checkout = "3.26",
-    depends = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-    },
-  })
+	add({
+		source = "nvim-neotest/neotest",
+		depends = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"olimorris/neotest-rspec",
+		},
+	})
 
-  add({
-    source = "MeanderingProgrammer/render-markdown.nvim",
-    depends = {
-      "nvim-treesitter/nvim-treesitter",
-      "echasnovski/mini.nvim",
-    },
-  })
+	add({
+		source = "nvim-neo-tree/neo-tree.nvim",
+		checkout = "3.26",
+		depends = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+		},
+	})
 
-  add("rachartier/tiny-inline-diagnostic.nvim")
+	add({
+		source = "MeanderingProgrammer/render-markdown.nvim",
+		depends = {
+			"nvim-treesitter/nvim-treesitter",
+			"echasnovski/mini.nvim",
+		},
+	})
 
-  add({
-    source = "nvim-treesitter/nvim-treesitter",
-    hooks = {
-      post_checkout = function()
-        vim.cmd("TSUpdate")
-      end,
-    },
-  })
+	add("rachartier/tiny-inline-diagnostic.nvim")
 
-  add({
-    source = "RRethy/nvim-treesitter-endwise",
-    depends = { "nvim-treesitter/nvim-treesitter" },
-  })
+	add({
+		source = "nvim-treesitter/nvim-treesitter",
+		hooks = {
+			post_checkout = function()
+				vim.cmd("TSUpdate")
+			end,
+		},
+	})
 
-  add({
-    source = "nvim-treesitter/nvim-treesitter-textobjects",
-    depends = { "nvim-treesitter/nvim-treesitter" },
-  })
+	add({
+		source = "RRethy/nvim-treesitter-endwise",
+		depends = { "nvim-treesitter/nvim-treesitter" },
+	})
 
-  add("folke/trouble.nvim")
-  add({
-    source = "windwp/nvim-ts-autotag",
-    depends = { "nvim-treesitter/nvim-treesitter" },
-  })
+	add({
+		source = "nvim-treesitter/nvim-treesitter-textobjects",
+		depends = { "nvim-treesitter/nvim-treesitter" },
+	})
 
-  add("folke/which-key.nvim")
-  add({ source = "vimpostor/vim-lumen", checkout = "v1.0" })
+	add("folke/trouble.nvim")
+	add({
+		source = "windwp/nvim-ts-autotag",
+		depends = { "nvim-treesitter/nvim-treesitter" },
+	})
+
+	add("folke/which-key.nvim")
+	add({ source = "vimpostor/vim-lumen", checkout = "v1.0" })
 end
 
 return M

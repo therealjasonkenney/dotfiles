@@ -8,31 +8,42 @@ src
 .config/fish/homebrew.fish
 .config/fish/cache.fish
 .local/share/sh/darwin.arm.env.sh
+run_after_brew-update.sh
 run_once_before-install-homebrew.sh
+run_onchange_after_brew-install.sh.tmpl
 run_onchange_after_setup-dock.sh.tmpl
 {{ end }}
 
-{{ if not (or (has "hobbydev" .profiles) (has "work" .profiles)) }}
-.config/bundle
+{{ if and (not (has "elixir" .enabled)) (not (has "javascript" .enabled)) (not (has "ruby" .enabled)) }}
 .config/fish/conf.d/asdf.fish
 .config/fish/functions/asdf.fish
+{{ end }}
+
+{{ if not (has "elixir" .enabled)}}
+run_onchange-install-elixir.sh
+.config/nvim/after/ftplugins/elixir.lua
+{{ end }}
+
+{{ if not (has "javascript" .enabled)}}
+run_onchange-install-node.sh
 .config/fish/conf.d/node.fish
-.config/fish/conf.d/ruby.fish
-.config/nvim/after/ftplugins/eruby.lua
-.config/nvim/after/ftplugins/ruby.lua
 .config/nvim/after/ftplugins/javascript.lua
 .config/nvim/after/ftplugins/javascriptreact.lua
 .config/nvim/after/ftplugins/typescript.lua
 .config/nvim/after/ftplugins/typescriptreact.lua
 {{ end }}
 
-{{ if not (has "hobbydev" .profiles) }}
+{{ if not (has "ruby" .enabled)}}
+run_onchange-install-ruby.sh
+.config/bundle
+.config/fish/conf.d/ruby.fish
+.config/nvim/after/ftplugins/eruby.lua
+.config/nvim/after/ftplugins/ruby.lua
+{{ end }}
+
+{{ if not (has "rust" .enabled) }}
+run_once_install-rust.sh
 .config/fish/conf.d/rust.fish
-.config/nvim/ftplugin/c.lua
-.config/nvim/elixir.lua
-.config/nvim/gdscript.lua
-.config/nvim/python.lua
-.config/nvim/sass.lua
 .config/nvim/after/ftplugins/rust.lua
 {{ end }}
 

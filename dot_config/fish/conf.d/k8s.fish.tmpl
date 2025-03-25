@@ -1,0 +1,12 @@
+{{- if has "k8s" .enabled }}
+# ###########################################################################
+# Sets up kubernetes support.
+# ###########################################################################
+
+set --export --global KUBECACHEDIR "$XDG_CACHE_HOME/kube"
+set --export --global KUBECONFIG "$HOME/.config/kube"
+
+status is-interactive; and begin
+  kubectl completion fish | source
+end
+{{- end }}

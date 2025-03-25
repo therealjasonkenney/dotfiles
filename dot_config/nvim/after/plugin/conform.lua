@@ -14,29 +14,39 @@
 
 local later = MiniDeps.later
 
-later(function()
-  local conform = require("conform")
+local augroup = vim.api.nvim_create_augroup("user.formatting", { clear = true })
 
-  conform.setup({
-    formatters_by_ft = {
-      eruby = { "erb_format" },
-      html = { "prettierd" },
-      lua = { "stylua" },
-      javascript = { "prettierd" },
-      javascriptreact = { "prettierd" },
-      json = { "prettierd" },
-      ruby = { "rubyfmt" },
-      typescript = { "prettierd" },
-      typescriptreact = { "prettierd" },
-    },
-  })
-end)
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+  callback = function()
+    local conform = require("conform")
 
--- Disable default formatting keymaps (they will be added
--- back if supported.)
-later(function()
-  local unmap = vim.keymap.del
-
-  -- unmap("n", "gw")
-  -- unmap("n", "gq")
-end)
+    conform.setup({
+      formatters_by_ft = {
+        eruby = { "erb_format" },
+        html = { "prettierd" },
+        lua = { "stylua" },
+        javascript = { "prettierd" },
+        javascriptreact = { "prettierd" },
+        json = { "prettierd" },
+        jsonc = { "prettierd" },
+        ruby = { "rubocop", "rubyfmt", stop_after_first = true },
+        typescript = { "prettierd" },
+        typescriptreact = { "prettierd" },
+      },
+      formatters = {
+        rubocop = {
+          args = {
+            "--server",
+            "--auto-correct-all",
+            "--stderr",
+            "--force-exclusion",
+            "--stdin",
+            "$FILENAME",
+          },
+        },
+      },
+    })
+  end,
+  desc = "Load the conform formatter",
+  group = augroup,
+})

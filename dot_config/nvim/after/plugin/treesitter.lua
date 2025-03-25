@@ -43,7 +43,9 @@ configs.setup({
       node_decremental = "grm",
     },
   },
-  indent = { enable = true },
+  indent = {
+    disable = { "ruby" },
+  },
   sync_install = false,
 })
 
