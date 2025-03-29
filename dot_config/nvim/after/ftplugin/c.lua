@@ -22,23 +22,12 @@ if root_dir and vim.fn.filereadable(root_dir .. "/.vscode/launch.json") then
 end
 
 if root_dir then
-  local capabilities =
-    vim.tbl_deep_extend("error", vim.lsp.protocol.make_client_capabilities(), {
-      textDocument = {
-        completion = {
-          editsNearCursor = true,
-        },
-      },
-      offsetEncoding = { "utf-8", "utf-16" },
-    })
+  local config = vim.lsp.config.clangd
 
-  vim.lsp.start({
-    name = "clangd",
-    cmd = { "/usr/bin/clangd" },
-    capabilities = capabilities,
-    filetypes = { "c" },
-    on_init = util.add_cmp_capabilities,
-    root_dir = root_dir,
+  vim.lsp.start(config, {
+    bufnr = bufnr,
+    reuse_client = config.reuse_client,
+    _root_markers = config.root_markers,
   })
 
   util.enable_formatting(bufnr, true)

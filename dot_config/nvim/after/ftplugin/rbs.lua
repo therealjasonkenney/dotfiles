@@ -25,7 +25,6 @@
 -- * LuaSnips Snippets (with rails snippets)
 --
 -- ----------------------------------------------------------------------------
-local config = require("config")
 local ts = require("nvim-treesitter.configs")
 local util = require("util")
 
@@ -43,7 +42,11 @@ end
 
 -- for now we use ruby_lsp as I cannot get solargraph to work.
 if root_dir then
-  local lsp_config = config.ruby_lsp(bufnr)
+  local config = vim.lsp.config.ruby_lsp
 
-  vim.lsp.start(lsp_config)
+  vim.lsp.start(config, {
+    bufnr = bufnr,
+    reuse_client = config.reuse_client,
+    _root_markers = config.root_markers,
+  })
 end

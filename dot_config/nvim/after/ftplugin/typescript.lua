@@ -1,4 +1,3 @@
-local config = require("config")
 local util = require("util")
 
 local bufnr = vim.api.nvim_get_current_buf()
@@ -10,5 +9,11 @@ util.ensure_installed("prettierd", function()
 end)
 
 util.ensure_installed("typescript-language-server", function()
-  vim.lsp.start(config.typescript_ls(bufnr))
+  local config = vim.lsp.config.ts_ls
+
+  vim.lsp.start(config, {
+    bufnr = bufnr,
+    reuse_client = config.reuse_client,
+    _root_markers = config.root_markers,
+  })
 end)
