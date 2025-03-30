@@ -10,6 +10,9 @@ cask "discord"                          # Tabletop RPGs.
 cask "firefox"                          # Roll 20 / site testing
 brew "imagemagick"                      # Image transformation/conversion tools.
 cask "keka"                             # Unarchive utility.
+{{- if has "personal" .profiles }}
+cask "omnigraffle"                      # Chart/Graphing/Diagramming.
+{{- end }}
 cask "phoenix-slides"                   # Image Folder browser.
 cask "vlc"                              # Video Player.
 {{- if or (has "zoom" .enabled) (has "academic" .profiles) }}
@@ -21,6 +24,16 @@ brew "gpg2"
 brew "pinentry-mac"
 brew "ykman"
 
+{{- if has "bgdev" .profiles }}
+# ###########################################################################
+# Designer Toolbox
+# ###########################################################################
+
+cask "affinity-designer"
+cask "affinity-publisher"
+cask "font-charis-sil"
+
+{{- end }}
 # ###########################################################################
 # Dev Toolbox
 # ###########################################################################
@@ -69,6 +82,9 @@ cask "docker"               # Docker Desktop
 brew "kubectl"
 brew "derailed/k9s/k9s"
 {{- end }}
+{{- if has "ai" .enabled }}
+brew "ollama"
+{{- end }}
 {{- if has "postgres" .enabled }}
 cask "postgres-unofficial"  # Postgres Database Server
 {{- end }}
@@ -84,6 +100,10 @@ brew "erlang@27"            # Needed for elixir plugin.
 {{- if has "ruby" .enabled }}
 brew "gmp"                  # Needed for ruby plugin.
 brew "libyaml"              # Needed for ruby plugin.
+{{- end }}
+{{- if has "sass" .enabled }}
+tap "sass/sass"
+brew "sass"
 {{- end }}
 
 # ###########################################################################
