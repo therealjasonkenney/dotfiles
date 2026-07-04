@@ -2,8 +2,8 @@
 #
 #
 
-export CARGO_HOME="$HOME/.local/cargo"
-export RUSTUP_HOME="$HOME/.local/rustup"
+export CARGO_HOME="$HOME/.local/share/cargo"
+export RUSTUP_HOME="$HOME/.local/share/rustup"
 export RUST_TOOLCHAIN=stable
 
 {{ if has "rust" .enabled }}
@@ -12,7 +12,7 @@ export RUST_TOOLCHAIN=stable
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   fi
 
-  "$HOME/.local/cargo/bin/rustup" update
+  "$CARGO_HOME/bin/rustup" update
 
 {{ else }}
 

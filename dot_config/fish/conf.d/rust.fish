@@ -1,5 +1,4 @@
-
-fish_add_path {$CARGO_HOME}/bin
+fish_add_path {$HOME}/.local/share/cargo/bin
 
 status is-interactive; and type -q cargo; and begin
   set -gx CARGO_HOME {$HOME}/.local/share/cargo
