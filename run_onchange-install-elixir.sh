@@ -18,11 +18,17 @@ if [ "$OS" = "Darwin" ]; then
   PATH="/opt/homebrew/bin:$PATH"
   eval "$(brew shellenv)"
 
-  # Install ASDF and Elixir Dependencies if they do not exist.
-  echo "[Elixir Install]: Checking dependencies"
-  brew list coreutils || brew install coreutils
-  brew list curl || brew install curl
-  brew list erlang || brew install erlang@27
+  if [ ! -d "$ASDF_DIR" ]; then
+    # Install ASDF and Elixir Dependencies if they do not exist.
+    echo "[ASDF Install]: Checking dependencies"
+    brew list coreutils || brew install coreutils
+    brew list curl || brew install curl
+  fi
+
+  if [ ! -x "/opt/homebrew/bin/erl" ]; then
+    echo "[Elixir Install]: Checking dependencies"
+    brew list erlang@27 || brew install erlang@27
+  fi
 fi
 
 # Install ASDF if it does not exist.

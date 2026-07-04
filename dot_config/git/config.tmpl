@@ -1,8 +1,8 @@
 {{- if hasKey . "github" -}}
 [includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
-  path = conf.d/github
+	path = conf.d/github
 {{- end }}
 
 {{- if hasKey . "gitlab" -}}
-  path = conf.d/gitlab
+	path = conf.d/gitlab
 {{- end }}

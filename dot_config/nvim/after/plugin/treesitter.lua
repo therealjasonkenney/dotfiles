@@ -30,6 +30,7 @@ configs.setup({
   },
   ensure_installed = {},
   highlight = {
+    disable = { "dockerfile" },
     enable = true,
     additional_vim_regex_highlighting = false,
   },
@@ -45,6 +46,7 @@ configs.setup({
   },
   indent = {
     disable = { "ruby" },
+    enable = true,
   },
   sync_install = false,
 })

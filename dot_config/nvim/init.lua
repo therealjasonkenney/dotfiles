@@ -47,6 +47,8 @@ setup.set_defaults()
 
 setup.install_plugins()
 
+setup.enable_lsps()
+
 -- Load dependencies before anything in `after/plugins`
 require("mini.icons").setup()
 require("mini.diff").setup()

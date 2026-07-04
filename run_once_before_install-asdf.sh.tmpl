@@ -1,0 +1,22 @@
+{{ if has "asdf" .enabled -}}
+#!/bin/sh
+#
+#
+
+# vim: filetype=sh
+
+# ###########################################################################
+# Installs ASDF
+# ###########################################################################
+
+ASDF_DIR="$HOME/.local/share/asdf"
+ASDF_DATA_DIR="$ASDF_DIR"
+
+# Install ASDF if it does not exist.
+if [ ! -d "$ASDF_DIR" ]; then
+  echo "[ASDF]: Installing ASDF"
+  git clone https://github.com/asdf-vm/asdf.git "$ASDF_DIR" \
+    --branch v0.14.1
+fi
+
+{{- end }}

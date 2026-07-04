@@ -13,17 +13,17 @@ vim.api.nvim_create_autocmd("InsertEnter", {
     }
 
     -- Check if we have the api key.
-    if os.getenv("COPILOT_API_KEY") then
-      strategies.chat = { adapter = "copilot" }
-      strategies.inline = { adapter = "copilot" }
-      strategies.cmd = { adapter = "copilot" }
-    end
+    -- if os.getenv("COPILOT_API_KEY") then
+    strategies.chat = { adapter = "copilot" }
+    strategies.inline = { adapter = "copilot" }
+    strategies.cmd = { adapter = "copilot" }
+    -- end
 
     require("codecompanion").setup({
       adapters = {
         opts = {
           language = "English",
-          show_defaults = false,
+          -- show_defaults = false,
         },
       },
       strategies = strategies,

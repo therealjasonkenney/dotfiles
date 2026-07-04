@@ -28,6 +28,7 @@
 -- | treesitter-endwise     |  󰢱 󰴭 | Automatically add `end` for blocks.    |
 -- | teesitter-textobjects  | All    | Add community provided groupings for   |
 -- |                        |        | auto pairs and travel.                 |
+-- | treesitter-rstml       | 󱘗      | Inline html handling.                  |
 -- | trouble                | 󰌞 󰘦 󰴭 | I for diagnostics, document symbols,   |
 -- |                        | 󱘗 󰛦   | lsp defs/references, and quickfix.     |
 -- | which-key              | All    | Helps with remembering keybindings.    |
@@ -115,6 +116,9 @@ M.install_plugins = function()
     },
   })
 
+  -- Linting for dockerfiles.
+  add("mfussenegger/nvim-lint")
+
   add({
     source = "MeanderingProgrammer/render-markdown.nvim",
     depends = {
@@ -141,6 +145,11 @@ M.install_plugins = function()
 
   add({
     source = "nvim-treesitter/nvim-treesitter-textobjects",
+    depends = { "nvim-treesitter/nvim-treesitter" },
+  })
+
+  add({
+    source = "rayliwell/tree-sitter-rstml",
     depends = { "nvim-treesitter/nvim-treesitter" },
   })
 

@@ -143,6 +143,7 @@ end
 
 M.set_defaults = function()
   local icons = require("config").icons()
+  local util = require("util")
   local map = vim.keymap.set
   local opt = vim.opt
 
@@ -185,6 +186,11 @@ M.set_defaults = function()
 
   -- Setup LSP
   local augroup = vim.api.nvim_create_augroup("user.lsp", { clear = true })
+
+  vim.lsp.config("*", {
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
+    on_init = util.add_cmp_capabilities,
+  })
 
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = setup_lsp,

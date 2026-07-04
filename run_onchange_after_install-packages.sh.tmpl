@@ -1,0 +1,39 @@
+#!/bin/sh
+# vim: filetype=sh
+#
+
+# Brewfile: {{ include (print .chezmoi.homeDir "/.config/brewfile/Brewfile") | sha256sum }}
+
+export HOMEBREW_BUNDLE_FILE_GLOBAL="$HOME/.config/brewfile/Brewfile"
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+brew bundle install --cleanup --zap --global
+
+{{- if has "asdf" .enabled }}
+
+# ###########################################################################
+# Installs ASDF Plugins
+# ###########################################################################
+
+# Plugin Versions: {{ include (print .chezmoi.homeDir "/.plugin-versions") | sha256sum }}
+
+ASDF_DIR="$HOME/.local/share/asdf"
+ASDF_DATA_DIR="$ASDF_DIR"
+
+export ASDF_PLUGIN_MANAGER_PLUGIN_VERSIONS_FILENAME="$ASDF_DATA_DIR/plugin-versions"
+
+. "$ASDF_DIR/asdf.sh"
+
+# Install Plugin Manager if it does not exist.
+if [ ! -d "$ASDF_DATA_DIR/plugins/asdf-plugin-manager" ]; then
+  echo "[ASDF]: Installing Plugin Manager"
+  asdf plugin add asdf-plugin-manager https://github.com/asdf-community/asdf-plugin-manager.git
+  asdf plugin update asdf-plugin-manager v1.4.0
+  asdf install asdf-plugin-manager 1.4.0
+  asdf global asdf-plugin-manager 1.4.0
+fi
+
+# asdf-plugin-manager add-all
+
+{{ end -}}

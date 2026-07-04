@@ -51,6 +51,7 @@ cask "bbedit"               # BBedit Text Editor, requires License.
 brew "fish-lsp"             # LSP for fish (not able to be installed via mason)
 cask "neovide"              # NeoVim GUI frontend.
 brew "neovim"               # Modal text editor.
+brew "tree-sitter-cli"      # Treesitter CLI tool used to install lang. parsers for neovim.
 {{- end }}
 
 # Shell Environment
@@ -90,7 +91,7 @@ cask "postgres-unofficial"  # Postgres Database Server
 {{- end }}
 
 # Programming Languages
-{{- if or (has "elixir" .enabled) (has "javascript" .enabled) (has "ruby" .enabled) }}
+{{- if or (has "asdf" .enabled) (has "elixir" .enabled) (has "javascript" .enabled) (has "ruby" .enabled) }}
 brew "coreutils"            # Needed for ASDF which manages elixir, node and ruby.
 brew "curl"                 # Needed for ASDF which manages elixir, node and ruby.
 {{- end }}
