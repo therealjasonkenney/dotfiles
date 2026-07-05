@@ -28,28 +28,30 @@
 --   features.
 -- ----------------------------------------------------------------------------
 
-local setup = require("setup")
+-- 01 enable new ui
+require("vim._core.ui2").enable()
 
--- Must set leader before loading lazy
+-- 02 Set leader key.
 vim.g.mapleader = " "
 
--- Setup neovide before anything else.
-if vim.g.neovide then
-  setup.neovide()
-end
+-- 03 Add Theme
+vim.pack.add({ "https://github.com/pappasam/papercolor-theme-slim" })
 
--- Setup and load mini.deps plugin.
-setup.mini()
+vim.cmd("colorscheme PaperColorSlim")
 
-setup.setup_colorscheme()
+-- Ensure it gets applied when the background changes between light and dark.
+vim.api.nvim_create_autocmd("OptionSet", {
+  pattern = "background",
+  callback = function()
+    -- Apply PaperColor again to update its internal theme switch
+    vim.cmd("colorscheme PaperColorSlim")
+  end,
+})
 
-setup.set_defaults()
+-- 04 Load mini
+vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
 
-setup.install_plugins()
-
-setup.enable_lsps()
-
--- Load dependencies before anything in `after/plugins`
 require("mini.icons").setup()
-require("mini.diff").setup()
-require("mini.git").setup()
+
+-- 05 Load configuration
+require("config")

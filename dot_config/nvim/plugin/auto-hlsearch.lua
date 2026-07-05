@@ -9,6 +9,10 @@
 -- -----------------------------------------------------------------------------
 local augroup = vim.api.nvim_create_augroup("auto_hlsearch", { clear = true })
 
+vim.pack.add({
+  { src = "https://github.com/asiryk/auto-hlsearch.nvim", version = "1.1.0" },
+})
+
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     require("auto-hlsearch").setup({})

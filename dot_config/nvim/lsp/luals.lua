@@ -1,13 +1,11 @@
 -- ---------------------------------------------------------------------------
 -- LuaLS configuration.
 -- ---------------------------------------------------------------------------
+local util = require("util")
 
+---@type vim.lsp.ClientConfig
 return {
-  cmd = function(dispatchers)
-    print("Loading luals config.")
-    local cmd = require("util").mason_path() .. "/lua-language-server"
-    return vim.lsp.rpc.start({ cmd }, dispatchers)
-  end,
+  cmd = util.mason_cmd("lua-language-server"),
   filetypes = { "lua" },
   root_markers = { ".luarc.json" },
 }

@@ -9,12 +9,11 @@
 -- | ---------- | -------------- |
 -- | `<space>?` | Show keybinds. |
 -- ----------------------------------------------------------------------------
-local later = MiniDeps.later
 
-later(function()
-  local map = vim.keymap.set
+vim.pack.add({ "https://github.com/folke/which-key.nvim" })
 
-  map("n", "<leader>?", function()
-    require("which-key").show({ global = true })
-  end, { desc = "Show keybinds" })
-end)
+local map = vim.keymap.set
+
+map("n", "<leader>?", function()
+  require("which-key").show({ global = true })
+end, { desc = "Show keybinds" })

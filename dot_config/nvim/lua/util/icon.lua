@@ -14,7 +14,7 @@ M.supports_glyph = function()
 
   if vim.g.neovide then
     return true
-  elseif lang == "enUS.UTF-8" and term == "xterm-256color" then
+  elseif lang == "en_US.UTF-8" and term == "xterm-256color" then
     return true
   else
     return false

@@ -1,7 +1,12 @@
+-- Elixir specific tooling with the LSP.
+vim.pack.add({
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/elixir-tools/elixir-tools.nvim",
+})
+
 local bufnr = vim.api.nvim_get_current_buf()
 local elixir = require("elixir")
 local elixirls = require("elixir.elixirls")
-local util = require("util")
 
 vim.keymap.set("v", "gm", ":ElixirExpandMacro<cr>", { buffer = bufnr })
 
@@ -40,5 +45,3 @@ dap.configurations.elixir = {
     "test/**/*_test.exs",
   },
 }
-
-util.enable_dap()

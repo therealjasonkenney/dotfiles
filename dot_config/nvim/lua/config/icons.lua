@@ -10,6 +10,9 @@ M.config = function()
     return {
       code_action = "💡",
       error = " ",
+      git_add = "✚",
+      git_change = "±",
+      git_del = "✖",
       info = " ",
       hint = "󰘥 ",
       warning = " ",
@@ -18,6 +21,9 @@ M.config = function()
     return {
       code_action = "A",
       error = "E",
+      git_add = "+",
+      git_change = "c",
+      git_del = "x",
       info = "I",
       hint = "H",
       warning = "W",

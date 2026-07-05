@@ -20,12 +20,17 @@
 -- * Enable a winbar with buffer | git | file tabs.
 -- ----------------------------------------------------------------------------
 
+-- Install neo-tree and its dependencies.
+vim.pack.add({
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/MunifTanjim/nui.nvim",
+  { src = "https://github.com/nvim-neo-tree/neo-tree.nvim", version = "3.26" },
+})
+
 -- Disable netrw file explorer.
 vim.api.nvim_create_augroup("FileExplorer", { clear = true })
 
 vim.schedule(function()
-  print("Neo-Tree loading")
-
   require("neo-tree").setup({
     source_selector = {
       winbar = true,

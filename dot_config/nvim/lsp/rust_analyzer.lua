@@ -1,7 +1,129 @@
 --- Much of this was fetched from https://github.com/neovim/nvim-lspconfig/blob/master/lsp/rust_analyzer.lua
 
+---@return string
+local function default_sysroot_src()
+  local cmd = {
+    vim.fs.normalize("$HOME/.local/cargo/bin/rustc"),
+    "--print",
+    "--sysroot"
+  }
+
+  local output = vim.system(cmd, { text = true }):wait()
+
+  local stdout = output.stdout
+  local sysroot
+
+  if output.code == 1 and stdout then
+    if string.sub(stdout, #stdout) == "\n" then
+      if #stdout > 1 then
+        sysroot = string.sub(stdout, 1, #stdout - 1)
+      else
+        sysroot = ""
+      end
+    else
+      sysroot = stdout
+    end
+  end
+
+  return sysroot and vim.fs.joinpath(sysroot, "lib/rustlib/src/rust/library") or nil
+end
+
+---@return string|nil
+local function is_library(fname)
+  local cargo_home = vim.fs.normalize("$HOME/.local/cargo")
+  local rustup_home = vim.fs.normalize("$HOME/.local/rustup")
+  local registry = cargo_home .. '/registry/src'
+  local git_registry = cargo_home .. '/git/checkouts'
+
+  local toolchains = rustup_home .. '/toolchains'
+
+  local user_sysroot_src = vim.tbl_get(vim.lsp.config['rust_analyzer'], 'settings', 'rust-analyzer', 'cargo',
+    'sysrootSrc')
+
+  local sysroot_src = user_sysroot_src or default_sysroot_src()
+
+  for _, item in ipairs { toolchains, registry, git_registry, sysroot_src } do
+    if item and vim.fs.relpath(item, fname) then
+      local clients = vim.lsp.get_clients { name = 'rust_analyzer' }
+      return #clients > 0 and clients[#clients].config.root_dir or nil
+    end
+  end
+end
+
+local function project_settings(root_dir)
+  if not root_dir then
+    return {}
+  end
+
+  local filepath = root_dir .. "/.rust-analyzer.json"
+
+  if vim.fn.filereadable(filepath) == 0 then
+    return {}
+  end
+
+  local content_lines = vim.fn.readfile(filepath)
+  local content = table.concat(content_lines, "\n")
+
+  return vim.json.decode(content)
+end
+
+---@param bufnr integer
+---@param on_dir fun(root_dir?: string)
+local function root_dir(bufnr, on_dir)
+  local fname = vim.api.nvim_buf_get_name(bufnr)
+
+  local reused_dir = is_library(fname)
+
+  if reused_dir then
+    on_dir(reused_dir)
+    return
+  end
+
+  local cargo_root_dir = vim.fs.root(fname, { "Cargo.toml" })
+
+  if not cargo_root_dir then
+    return
+  end
+
+  local cmd = {
+    vim.fn.expand("$HOME/.local/cargo/bin/cargo"),
+    "metadata",
+    "--no-deps",
+    "--format-version",
+    "1",
+    "--manifest-path",
+    cargo_root_dir .. "/Cargo.toml"
+  }
+
+  vim.system(cmd, { text = true }, function(output)
+    local workspace_root
+
+    if output.code == 0 then
+      if output.stdout then
+        local result = vim.json.decode(output.stdout)
+
+        if result["workspace_root"] then
+          workspace_root = vim.fs.normalize(result["workspace_root"])
+        end
+      end
+    else
+      vim.schedule(function()
+        vim.notify(('[rust_analyzer] cmd failed with code %d: %s\n%s'):format(output.code, cmd, output.stderr))
+      end)
+    end
+
+    on_dir(workspace_root or cargo_root_dir)
+  end)
+end
+
 local function before_init(init_params, config)
   if config.settings and config.settings["rust-analyzer"] then
+    vim.tbl_deep_extend(
+      "force",
+      config.settings["rust-analyzer"],
+      project_settings(config.root_dir)
+    )
+
     init_params.initializationOptions = config.settings["rust-analyzer"]
   end
 
@@ -28,7 +150,7 @@ end
 local function on_attach(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, "LspCargoReload", function()
     local clients =
-      vim.lsp.get_clients({ bufnr = bufnr, name = "rust_analyzer" })
+        vim.lsp.get_clients({ bufnr = bufnr, name = "rust_analyzer" })
 
     for _, client in ipairs(clients) do
       vim.notify("Reloading Cargo Workspace")
@@ -44,81 +166,11 @@ local function on_attach(_, bufnr)
   end, { desc = "Reload current cargo workspace" })
 end
 
-local function project_settings(root_dir)
-  if not root_dir then
-    return {}
-  end
-
-  local filepath = root_dir .. "/.rust-analyzer.json"
-
-  if vim.fn.filereadable(filepath) == 0 then
-    return {}
-  end
-
-  local content_lines = vim.fn.readfile(filepath)
-  local content = table.concat(content_lines, "\n")
-
-  return vim.json.decode(content)
-end
-
-local function workspace_root()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local cargo_root_dir = vim.fs.root(bufnr, { "Cargo.toml" })
-
-  if cargo_root_dir then
-    local get_root = vim.fn.expand("$HOME/.local/cargo/bin/cargo")
-    get_root = get_root .. " metadata --no-deps --format-version 1"
-    get_root = get_root .. " --manifest-path "
-    get_root = get_root .. cargo_root_dir .. "/Cargo.toml"
-
-    local pipe = assert(io.popen(get_root, "r"))
-
-    local output = pipe:read("*all")
-
-    pipe:close()
-
-    if output then
-      local data = vim.json.decode(output)
-
-      if data["workspace_root"] then
-        return vim.fs.normalize(data["workspace_root"])
-      end
-    end
-  end
-end
-
 local util = require("util")
 
 local cmd = vim.fn.expand("$HOME/.local/cargo/bin/rust-analyzer")
 
-local gbl_settings = {
-  cargo = {
-    features = "all",
-  },
-  cfg = {
-    setTest = false,
-  },
-  lens = {
-    debug = { enable = true },
-    enable = true,
-    implementations = { enable = true },
-    references = {
-      adt = { enable = true },
-      enumVariant = { enable = true },
-      method = { enable = true },
-      trait = { enable = true },
-    },
-    run = { enable = true },
-    updateTest = { enable = true },
-  },
-}
-
-local root_dir = workspace_root()
-
-local settings =
-  vim.tbl_deep_extend("force", gbl_settings, project_settings(root_dir))
-
----@type vim.lsp.ClientConfig
+---@type vim.lsp.Config
 return {
   before_init = before_init,
   capabilities = {
@@ -139,6 +191,27 @@ return {
   on_init = util.add_cmp_capabilities,
   root_dir = root_dir,
   settings = {
-    ["rust-analyzer"] = settings,
+    ["rust-analyzer"] = {
+      cargo = {
+        features = "all",
+      },
+      cfg = {
+        setTest = false,
+      },
+      lens = {
+        debug = { enable = true },
+        enable = true,
+        location = "above_whole_item",
+        implementations = { enable = true },
+        references = {
+          adt = { enable = true },
+          enumVariant = { enable = true },
+          method = { enable = true },
+          trait = { enable = true },
+        },
+        run = { enable = true },
+        updateTest = { enable = true },
+      },
+    },
   },
 }

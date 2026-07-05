@@ -2,16 +2,9 @@
 
 local M = vim.tbl_extend(
   "error",
-  require("util.comments"),
-  require("util.conform"),
-  require("util.dap"),
-  require("util.dictionary"),
   require("util.icon"),
-  require("util.lsp"),
   require("util.mason")
 )
-
-M.add_cmp_capabilities = require("util.cmp").add_capabilities
 
 ---Finds a git project root, which can be a default for some
 ---lsps.

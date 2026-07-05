@@ -9,24 +9,17 @@
 -- ----------------------------------------------------------------------------
 
 local micons = require("mini.icons")
-local later = require("mini.deps").later
 local util = require("util")
 
-later(function()
-  if util.supports_glyph() then
-    micons.config.style = "glyph"
-  else
-    micons.config.style = "ascii"
-  end
-end)
+if util.supports_glyph() then
+  micons.config.style = "glyph"
+else
+  micons.config.style = "ascii"
+end
 
-later(function()
-  micons.mock_nvim_web_devicons()
-end)
+micons.mock_nvim_web_devicons()
 
-later(function()
-  micons.tweak_lsp_kind()
-end)
+micons.tweak_lsp_kind()
 
 vim.api.nvim_create_user_command("CopyIcon", function(args)
   -- This requires two arguments

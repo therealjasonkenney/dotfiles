@@ -9,18 +9,16 @@ local function on_init(client)
 
   -- Add completion
   client.capabilities.textDocument.completion =
-    cmp.default_capabilities().textDocument.completion
+      cmp.default_capabilities().textDocument.completion
 end
 
 local util = require("util")
-
-local cmd = util.mason_path() .. "/typescript-language-server"
 
 ---@type vim.lsp.ClientConfig
 return {
   name = "ts_ls",
   init_options = { hostInfo = "neovim" },
-  cmd = { cmd, "--stdio" },
+  cmd = util.mason_cmd("typescript-language-server", { "--stdio" }),
   filetypes = {
     "javascript",
     "javascriptreact",
