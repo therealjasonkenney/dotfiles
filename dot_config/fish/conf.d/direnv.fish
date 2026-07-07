@@ -6,6 +6,6 @@
 # - See: https://direnv.net/
 # ###########################################################################
 
-status is-interactive; type -q direnv; and begin
-  direnv hook fish | source
+status is-interactive; type -q /opt/homebrew/bin/direnv; and begin
+  /opt/homebrew/bin/direnv hook fish | source
 end

@@ -1,10 +1,11 @@
-fish_add_path {$HOME}/.local/share/cargo/bin
 
-status is-interactive; and type -q cargo; and begin
-  set -gx CARGO_HOME {$HOME}/.local/share/cargo
+fish_add_path -g {$HOME}/.local/cargo/bin
+
+type -q cargo; and begin
+  set -gx CARGO_HOME {$HOME}/.local/cargo
 end
 
-status is-interactive; and type -q rustup; and begin
+type -q rustup; and begin
   # Set location of cargo and rustup to adhere to XDG guidelines.
   set -gx RUSTUP_HOME {$HOME}/.local/rustup
 
