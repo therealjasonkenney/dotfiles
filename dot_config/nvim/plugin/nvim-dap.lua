@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd("BufRead", {
       "https://github.com/rcarriga/nvim-dap-ui",
       "https://github.com/theHamsta/nvim-dap-virtual-text",
       "https://github.com/suketa/nvim-dap-ruby",
-      "https://github.com/mfusseneggar/nvim-dap",
+      "https://codeberg.org/mfussenegger/nvim-dap",
     })
 
     local dap = require("dap")

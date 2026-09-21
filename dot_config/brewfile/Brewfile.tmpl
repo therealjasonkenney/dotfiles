@@ -3,37 +3,29 @@
 
 cask_args(require_sha: true, no_quarantine: true)
 
-brew "chezmoi"                         # Manages these dotfiles.
+brew "chezmoi"                                # Manages these dotfiles.
 {{- if has "personal" .profiles }}
-cask "discord"                          # Tabletop RPGs.
+cask "discord"                                # Tabletop RPGs.
+cask "endnote",  args: { require_sha: false}  # Manage References
 {{- end }}
-cask "firefox"                          # Roll 20 / site testing
-brew "imagemagick"                      # Image transformation/conversion tools.
-cask "keka"                             # Unarchive utility.
+cask "firefox"                                # Roll 20 / site testing
+brew "gpg2"                                   # Auth to git via yubikey
+brew "imagemagick"                            # Image transformation/conversion tools.
+cask "keka"                                   # Unarchive utility.
 {{- if has "personal" .profiles }}
-cask "omnigraffle"                      # Chart/Graphing/Diagramming.
+cask "omnigraffle"                            # Chart/Graphing/Diagramming.
 {{- end }}
-cask "phoenix-slides"                   # Image Folder browser.
-cask "vlc"                              # Video Player.
-{{- if or (has "zoom" .enabled) (has "academic" .profiles) }}
-cask "zoom"                             # Online classroom
+cask "phoenix-slides"                         # Image Folder browser.
+brew "pinentry-mac"                           # Auth to git via yubikey
+{{- if has "personal" .profiles }}
+cask "scrivener"                              # Novel writing software.
+{{- end }}
+cask "vlc"                                    # Video Player.
+brew "ykman"                                  # Auth to git via yubikey
+{{- if or (has "zoom" .enabled) (has "personal" .profiles) }}
+cask "zoom"                                   # Online classroom
 {{- end }}
 
-# Auth to git via yubikey
-brew "gpg2"
-brew "pinentry-mac"
-brew "ykman"
-
-{{- if has "bgdev" .profiles }}
-# ###########################################################################
-# Designer Toolbox
-# ###########################################################################
-
-cask "affinity-designer"
-cask "affinity-publisher"
-cask "font-charis-sil"
-
-{{- end }}
 # ###########################################################################
 # Dev Toolbox
 # ###########################################################################
@@ -44,15 +36,10 @@ cask "font-hack-nerd-font"  # Font used for Terminal and NeoVim
 {{- end }}
 
 # Text Editing
-{{- if eq .editor "bbedit" }}
-cask "bbedit"               # BBedit Text Editor, requires License.
-{{- end }}
-{{- if eq .editor "neovim" }}
 brew "fish-lsp"             # LSP for fish (not able to be installed via mason)
 cask "neovide"              # NeoVim GUI frontend.
 brew "neovim"               # Modal text editor.
 brew "tree-sitter-cli"      # Treesitter CLI tool used to install lang. parsers for neovim.
-{{- end }}
 
 # Shell Environment
 brew "bat"                  # CLI source code viewer
@@ -84,6 +71,9 @@ cask "postgres-unofficial"  # Postgres Database Server
 {{- end }}
 
 # Programming Languages
+{{- if has "personal" .profiles }}
+cask "basictex"             # Typesetting
+{{- end }}
 {{- if or (has "asdf" .enabled) (has "elixir" .enabled) (has "javascript" .enabled) (has "ruby" .enabled) }}
 brew "coreutils"            # Needed for ASDF which manages elixir, node and ruby.
 brew "curl"                 # Needed for ASDF which manages elixir, node and ruby.
@@ -103,21 +93,7 @@ brew "sass"
 # ###########################################################################
 
 # ###########################################################################
-# Writer Toolbox
-# ###########################################################################
-{{- if has "academic" .profiles }}
-# Academic Writing / Classwork
-cask "endnote",  args: { require_sha: false} # Manage References
-{{- end }}
-
-{{- if has "novelist" .profiles }}
-# Novel Writing
-cask "basictex"             # Typesetting
-cask "scrivener"            # Novel writing software.
-{{- end }}
-
-# ###########################################################################
-# Optional Tools
+# Machine Specific Tools
 # ###########################################################################
 {{ range .packages -}}
 brew {{. | quote }}
