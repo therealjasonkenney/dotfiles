@@ -195,6 +195,10 @@ return {
       cargo = {
         features = "all",
       },
+      check = {
+        command = "clippy",
+        allTargets = true,
+      },
       cfg = {
         setTest = false,
       },
