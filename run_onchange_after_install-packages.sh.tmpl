@@ -15,7 +15,8 @@ brew trust dart-lang/dart
 brew trust sass/sass
 {{- end }}
 
-brew bundle install --cleanup --zap --global
+brew bundle install --global
+brew bundle cleanup --zap --global
 
 {{- if has "asdf" .enabled }}
 

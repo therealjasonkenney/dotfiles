@@ -46,26 +46,3 @@ run_once_install-rust.sh
 .config/fish/conf.d/rust.fish
 .config/nvim/after/ftplugins/rust.lua
 {{ end }}
-
-{{ if not (eq .editor "bbedit") }}
-.config/fish/conf.d/bbedit.fish
-{{ end }}
-
-{{ if not (eq .shell "fish") }}
-.config/fish
-run_once_after_setup-fish.sh
-{{ end }}
-
-{{ if not (eq .editor "neovim") }}
-.config/nvim
-.config/fish/conf.d/nvim.fish
-{{ end }}
-
-{{ if not (eq .terminal "wezterm") }}
-.config/wezterm
-{{- end }}
-
-{{ if not (has "zellij" .enabled) }}
-.config/fish/conf.d/zellij.fish
-.config/zellij
-{{ end }}
