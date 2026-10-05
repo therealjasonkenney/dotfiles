@@ -10,20 +10,22 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply therealjasonkenney/dotfiles
 
 ## Development Environment
 
-| **Editor** | `nvim` | [website](https://neovim.io) |
-| **Language Version Manager** | `asdf` | [website](https://asdf-vm.com) |
-| **Prompt** | `starship` | [website](https://starship.rs/) |
-| **Search** | `rg` | [website](https://github.com/burntsushi/ripgrep) |
-| **Shell** | `fish` | [website](https://fishshell.com/) |
-| **Package Manager** | `brew` | [website](https://brew.sh) |
+|                              |            |                                                  |
+| ---------------------------- | ---------- | ------------------------------------------------ |
+| **Find**                     | `fd`       | [website](https://github.com/sharkdp/fd)         |
+|                              | `sk`       | [website](https://github.com/skim-rs/skim)       |
+| **Editor**                   | `nvim`     | [website](https://neovim.io)                     |
+| **Language Version Manager** | `asdf`     | [website](https://asdf-vm.com)                   |
+| **Prompt**                   | `starship` | [website](https://starship.rs/)                  |
+| **Search**                   | `rg`       | [website](https://github.com/burntsushi/ripgrep) |
+| **Shell**                    | `fish`     | [website](https://fishshell.com/)                |
+| **Package Manager**          | `brew`     | [website](https://brew.sh)                       |
 
 - **ASDF:** I use `asdf` to handle installation and switching versions for: `elixir`, `node`, and `ruby`.
 - **Bat:** A simple code viewer for the terminal so I can see syntax-highlighted code without opening an editor.
-- **Fd:** Find replacement.
 - **Fish:** I use `fish` because it's scripting is easier than `bash`, it has completions, and is easy to have different configurations in one directory, so I can include/exclude easier than with
 `zsh`. (It's also written in `rust`)
 - **Neovim:** I prefer modal editing, `neovim` provides a vi-like experience, but with `lua` configuration, `lsp` support, but is more familiar than `vscode` would be.
-- **Skim:** Fuzzy file finding.
 
 
 ### Other programming language support.
