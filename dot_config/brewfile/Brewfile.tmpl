@@ -54,7 +54,10 @@ brew "zellij"               # Terminal Muxer
 
 # Services
 {{- if has "docker" .enabled }}
-cask "docker"               # Docker Desktop
+brew "colima"               # Container Daemon
+brew "docker"               # Docker container engine.
+brew "docker-buildx"        # Allow buildx/bake
+brew "docker-compose"       # Allow docker compose
 {{- end }}
 {{- if has "k8s" .enabled }}
 brew "kubectl"

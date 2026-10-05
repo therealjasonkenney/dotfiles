@@ -8,22 +8,66 @@ My dotfiles repo used by chezmoi
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply therealjasonkenney/dotfiles.git
 ```
 
-### File Handlers
+## Development Environment
 
-| | |
-| - | - |
-| **Archives** | Stuffit Expander |
-| **Audio (MP3, CD)** | Apple Music |
-| **Image / PDF** | Apple Preview |
-| **Source Code / Text** | Neovide ([doc](http://neovide.dev/)) |
-| **Video** | VLC ([doc](https://www.videolan.org)) |
+### Shell: Fish
+I use `fish` because it's scripting is easier than `bash`, it has completions, and is easy to
+have different configurations in one directory, so I can include/exclude easier than with
+`zsh`. (It's also written in `rust`)
 
-### Photography
+See their [website](https://fishshell.com/).
 
-- **Apple Photos:** TBD
-- **Affinity Photo 2:** TBD
+### Text Editing: Neovim
+I prefer modal editing, `neovim` provides a vi-like experience,
+but with `lua` configuration, `lsp` support, but is more familiar
+than `vscode` would be.
 
-### Writing Environment
+See their [website](https://neovim.io).
+
+### Programming Language Manager: ASDF
+I use `asdf` to handle installation and switching versions for:
+- Elixir
+- Javascript/Typescript
+- Ruby
+
+### Other programming language support.
+- C/C++
+- Python
+- Rust
+- Swift
+- TeX/LaTeX
+
+### Services
+- Docker (via `colima`)
+- Kubernetes
+- Postgres (via Postgres.app)
+
+### Utilities
+
+- **bat:** A simple code viewer for the terminal so I can see syntax-highlighted code without
+  opening an editor.
+- **cdrao:** CD Archival tool
+- **fd:** Find replacement.
+- **imagemagick:** Image conversion utilities.
+- **ripgrep:** Lets me search a project for specific instances of code.
+- **skim:** Fuzzy file finding.
+
+## File Handlers
+
+|                        |                |   |
+| ---------------------- | -------------- | - |
+| **Archives**           | Keka           | [https://www.keka.io](https://www.keka.io) |
+| **Audio (MP3, CD)**    | Apple Music    | |
+| **Image / PDF**        | Apple Preview  | |
+|                        | Phoenix Slides | [https://blyt.net/phxslides/](https://blyt.net/phxslides/) |
+| **Video**              | VLC ([https://www.videolan.org](https://www.videolan.org)) |
+
+## Photography
+
+- Apple Photos
+- Affinity Photo 2
+
+## Writing Environment
 
 - **Scrivener:** I write scenes in a non-linear fashion and often need to then
   determine how they fit, often cutting and stiching in a similar way to
@@ -40,15 +84,3 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply therealjasonkenney/dotfiles
 - **Microsoft Word:** Many magazines and agents still require submissions to be `docx` in
   manuscript format. Scrivener can compile to ms word. This is also useful when getting
   feedback from those who use the review features.
-
-### Computing Environment
-
-- **fish:** My shell.
-- **neovim:** I prefer modal editing, neovim provides a vi-like experience,
-  but with lua configuration, lsp support, but is more familiar than vscode would be.
-- **bat:** A simple code viewer for the terminal so I can see syntax-highlighted code without
-  opening an editor.
-- **ripgrep:** Lets me search a project for specific instances of code.
-- **skim:** Fuzzy file finding.
-- **Wezterm:** A terminal emulator that supports proper copy/paste with neovim, tabs, and
-  the full terminal codes (which OSX Terminal does not), that isn't an electron app.
