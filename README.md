@@ -27,6 +27,12 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply therealjasonkenney/dotfiles
 `zsh`. (It's also written in `rust`)
 - **Neovim:** I prefer modal editing, `neovim` provides a vi-like experience, but with `lua` configuration, `lsp` support, but is more familiar than `vscode` would be.
 
+### Security
+I store my ssh keys on `yubikey`.
+
+- **gpg:** Signs `git` commits, bridges the `yubikey` with `git` and `ssh`.
+- **pinentry-mac:** Handles pin entry when using the yubikey with `git` and `ssh`
+- **ykman:** Manage the yubikeys.
 
 ### Other programming language support.
 - C/C++
