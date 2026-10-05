@@ -10,25 +10,21 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply therealjasonkenney/dotfiles
 
 ## Development Environment
 
-### Shell: Fish
-I use `fish` because it's scripting is easier than `bash`, it has completions, and is easy to
-have different configurations in one directory, so I can include/exclude easier than with
+| **Editor** | `nvim` | [website](https://neovim.io) |
+| **Language Version Manager** | `asdf` | [website](https://asdf-vm.com) |
+| **Prompt** | `starship` | [website](https://starship.rs/) |
+| **Search** | `rg` | [website](https://github.com/burntsushi/ripgrep) |
+| **Shell** | `fish` | [website](https://fishshell.com/) |
+| **Package Manager** | `brew` | [website](https://brew.sh) |
+
+- **ASDF:** I use `asdf` to handle installation and switching versions for: `elixir`, `node`, and `ruby`.
+- **Bat:** A simple code viewer for the terminal so I can see syntax-highlighted code without opening an editor.
+- **Fd:** Find replacement.
+- **Fish:** I use `fish` because it's scripting is easier than `bash`, it has completions, and is easy to have different configurations in one directory, so I can include/exclude easier than with
 `zsh`. (It's also written in `rust`)
+- **Neovim:** I prefer modal editing, `neovim` provides a vi-like experience, but with `lua` configuration, `lsp` support, but is more familiar than `vscode` would be.
+- **Skim:** Fuzzy file finding.
 
-See their [website](https://fishshell.com/).
-
-### Text Editing: Neovim
-I prefer modal editing, `neovim` provides a vi-like experience,
-but with `lua` configuration, `lsp` support, but is more familiar
-than `vscode` would be.
-
-See their [website](https://neovim.io).
-
-### Programming Language Manager: ASDF
-I use `asdf` to handle installation and switching versions for:
-- Elixir
-- Javascript/Typescript
-- Ruby
 
 ### Other programming language support.
 - C/C++
@@ -41,16 +37,6 @@ I use `asdf` to handle installation and switching versions for:
 - Docker (via `colima`)
 - Kubernetes
 - Postgres (via Postgres.app)
-
-### Utilities
-
-- **bat:** A simple code viewer for the terminal so I can see syntax-highlighted code without
-  opening an editor.
-- **cdrao:** CD Archival tool
-- **fd:** Find replacement.
-- **imagemagick:** Image conversion utilities.
-- **ripgrep:** Lets me search a project for specific instances of code.
-- **skim:** Fuzzy file finding.
 
 ## File Handlers
 
@@ -84,3 +70,7 @@ I use `asdf` to handle installation and switching versions for:
 - **Microsoft Word:** Many magazines and agents still require submissions to be `docx` in
   manuscript format. Scrivener can compile to ms word. This is also useful when getting
   feedback from those who use the review features.
+
+## Other Utilities
+- **cdrao:** CD Archival tool
+- **imagemagick:** Image conversion utilities.
