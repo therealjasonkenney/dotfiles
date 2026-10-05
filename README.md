@@ -22,10 +22,15 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply therealjasonkenney/dotfiles
 | **Package Manager**          | `brew`     | [website](https://brew.sh)                       |
 
 - **ASDF:** I use `asdf` to handle installation and switching versions for: `elixir`, `node`, and `ruby`.
-- **Bat:** A simple code viewer for the terminal so I can see syntax-highlighted code without opening an editor.
-- **Fish:** I use `fish` because it's scripting is easier than `bash`, it has completions, and is easy to have different configurations in one directory, so I can include/exclude easier than with
+- **Bat:** A simple code viewer for the terminal so I can see syntax-highlighted
+  code without opening an editor.
+- **Fish:** I use `fish` because it's scripting is easier than `bash`, it has
+  completions, and is easy to have different configurations in one directory, so
+  I can include/exclude easier than with
 `zsh`. (It's also written in `rust`)
-- **Neovim:** I prefer modal editing, `neovim` provides a vi-like experience, but with `lua` configuration, `lsp` support, but is more familiar than `vscode` would be.
+- **Neovim:** I prefer modal editing, `neovim` provides a vi-like experience,
+  but with `lua` configuration, `lsp` support, but is more familiar than
+  `vscode` would be.
 
 ### Security
 I store my ssh keys on `yubikey`.
@@ -48,18 +53,10 @@ I store my ssh keys on `yubikey`.
 
 ## File Handlers
 
-|                        |                |   |
-| ---------------------- | -------------- | - |
-| **Archives**           | Keka           | [https://www.keka.io](https://www.keka.io) |
-| **Audio (MP3, CD)**    | Apple Music    | |
-| **Image / PDF**        | Apple Preview  | |
-|                        | Phoenix Slides | [https://blyt.net/phxslides/](https://blyt.net/phxslides/) |
-| **Video**              | VLC ([https://www.videolan.org](https://www.videolan.org)) |
-
-## Photography
-
-- Apple Photos
-- Affinity Photo 2
+|                        |                |                                        |
+| ---------------------- | -------------- | -------------------------------------- |
+| **Archives**           | Keka           | [website](https://www.keka.io)         |
+| **Video**              | VLC            | [website](https://www.videolan.org)    |
 
 ## Writing Environment
 
@@ -70,6 +67,8 @@ I store my ssh keys on `yubikey`.
   corkboards for researching and brainstorming. This is (IMHO) the best too for **me**
   when it comes to novels or complex academic papers.
   [link](https://www.literatureandlatte.com/scrivener/overview)
+- **Antidote:** Spelling and Grammar, I use this because its a local application
+  and its AI utilities can be ignored.
 - **Endnote:** Citations and managing references is a pain to do in a spreadsheet.
   Its not perfect and requires some tweaking, but when you have 10-20 sources you are
   assembling and need to cite correctly, a reference manager helps with that, I like
@@ -82,3 +81,4 @@ I store my ssh keys on `yubikey`.
 ## Other Utilities
 - **cdrao:** CD Archival tool
 - **imagemagick:** Image conversion utilities.
+- **Phoenix Slides:** Bulk image viewer, see [website](https://blyt.net/phxslides/).
